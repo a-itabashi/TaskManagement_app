@@ -1,24 +1,24 @@
-# README
+# TaskManagement_appの概要
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Model
+# Userモデル
+# Taskモデル
+# Labelモデル
 
-Things you may want to cover:
+## テーブル/カラム/データ型
+# usersテーブル
+- name:string
+- email:string
+- password_digest:string
 
-* Ruby version
+# tasksテーブル
+- user_id:references
+- title:string
+- content:text
+- status:integer
+- deadline:timestamp
+- priority:integer
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# labelテーブル
+- task_id:references
+- type:string
