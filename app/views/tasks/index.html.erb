@@ -11,7 +11,9 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td></td>
+        <td><%= link_to "詳細", task %></td>
+        <td><%= link_to "編集", edit_task_path(task) %></td>
+        <td><%= link_to "削除", task, method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
       </tr>
     <% end %>
     <tr>
