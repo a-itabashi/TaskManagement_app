@@ -1,28 +1,3 @@
-# TaskManagement_appの概要
-
-## Model
-# Userモデル
-# Taskモデル
-# Labelモデル
-
-## テーブル/カラム/データ型
-# usersテーブル
-- name:string
-- email:string
-- password_digest:string
-
-# tasksテーブル
-- user_id:references
-- title:string
-- content:text
-- status 
-
-
-
-
-
-
-
 ## このカリキュラムについて
 
 この文書は、万葉で必須とされるRuby on Railsとその周辺技術の基礎を習得するための新入社員教育用カリキュラムです。
