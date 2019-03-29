@@ -1,0 +1,16 @@
+<%= form_with(model: @task,local: true) do |f| %>
+  <div>
+    <%= f.label :title, "タスク名" %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :content, "詳細" %>
+    <%= f.text_area :content %>
+  </div>
+  <div>
+    <%= f.submit "作成する" %>
+  </div>
+  <div>
+    <%= link_to "戻る", root_path %>
+  </div>
+<% end %>
