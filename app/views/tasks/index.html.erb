@@ -21,4 +21,10 @@
   </tbody>
 </table>
 
-<%= link_to "タスクを作成する", new_task_path %>
+<div>
+  <%= link_to "タスクを作成する", new_task_path %>
+</div>
+&nbsp
+<div>
+  <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+</div>

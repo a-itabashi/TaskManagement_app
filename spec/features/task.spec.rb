@@ -35,6 +35,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
     visit root_path
     tasks = Task.all.order(created_at: "desc")
-    expect(tasks.first).to eq Task.all.last
+    task_1 = tasks.first
+    task_2 = tasks.second
+    expect(task_1.created_at).to be > task_2.created_at
   end
 end
