@@ -7,8 +7,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク一覧のテスト" do
-    
-    visit tasks_path
+    visit root_path
     expect(page).to have_content "testesttest"
     expect(page).to have_content "samplesample"
   end
@@ -34,6 +33,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
-
+    visit root_path
+    tasks = Task.all.order(created_at: "desc")
+    expect(tasks.first).to eq Task.all.last
   end
 end
