@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
+  background do
+  FactoryBot.create(:task ,title:"testesttest") 
+  FactoryBot.create(:second_task, title:"samplesample")
+  end
+
   scenario "タスク一覧のテスト" do
-    Task.create!(title:"test_task_01", content:"testesttest")
-    Task.create!(title:"test_task_02", content:"samplesample")
+    
     visit tasks_path
     expect(page).to have_content "testesttest"
     expect(page).to have_content "samplesample"
@@ -18,7 +22,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク詳細のテスト" do
-  # タスクの作成
+  # タスクの作成。一度、backgroundで生成したレコードを削除
+    Task.delete_all
     visit new_task_path
     fill_in "タスク名", with: "test@gmail.com"
     fill_in "詳細", with: "テストの内容だよ"
@@ -26,5 +31,9 @@ RSpec.feature "タスク管理機能", type: :feature do
   # タスクの詳細
     click_on "詳細"
     expect(page).to have_content "test@gmail.com" && "テストの内容だよ"
+  end
+
+  scenario "タスクが作成日時の降順に並んでいるかのテスト" do
+
   end
 end
