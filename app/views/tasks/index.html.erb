@@ -1,9 +1,10 @@
 <h1>タスク一覧</h1>
-<table>
+<table border="1">
   <thead>
     <tr>
       <th>タスク名</th>
       <th>詳細</th>
+      <th>終了期限</th>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +12,7 @@
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
+        <td><%= task.deadline.strftime("%Y年%m月%d日")%></td>
         <td><%= link_to "詳細", task %></td>
         <td><%= link_to "編集", edit_task_path(task) %></td>
         <td><%= link_to "削除", task, method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
@@ -20,7 +22,7 @@
     </tr>
   </tbody>
 </table>
-
+&nbsp
 <div>
   <%= link_to "タスクを作成する", new_task_path %>
 </div>

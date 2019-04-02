@@ -15,7 +15,7 @@
 - title:string
 - content:text
 - status:integer
-- deadline:timestamp
+- deadline:datetime
 - priority:integer
 
 ### labelテーブル
