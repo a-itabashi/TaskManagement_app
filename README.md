@@ -29,7 +29,7 @@
 
 
 # 環境
-ruby 2.6.2
-Rails 5.2.3
-psql (PostgreSQL) 11.2
+- ruby 2.6.2
+- Rails 5.2.3
+- psql (PostgreSQL) 11.2
 
