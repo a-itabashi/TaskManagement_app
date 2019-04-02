@@ -6,6 +6,9 @@
 <h2>詳細</h2>
 <p><%= @task.content %></p>
 
+<h2>終了期限</h2>
+<p><%= @task.deadline.strftime("%Y年%m月%d日") %></p>
+
 <div>
   <%= link_to "戻る", root_path %>
 </div>
