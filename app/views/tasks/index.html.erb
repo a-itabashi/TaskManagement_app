@@ -6,19 +6,17 @@
     <tr>
       <th>タスク名</th>
       <th>詳細</th>
-      <th>終了期限</th>
+      <th><%= sort_link(@search, :deadline, '終了期限') %></th>
       <th>状態</th>
     </tr>
   </thead>
   <tbody>
 
-
-    <%= search_form_for(@search, url: root_path, local: true, method: :get) do |f| %>
+    <%= search_form_for @search do |f| %>
       <%= f.label :title_cont, "タスク名検索" %>
       <%= f.search_field :title_cont %>
       <%= f.label :status_cont, "状態検索" %>
       <%= f.select :status_cont, @statues, include_blank: true %>
-      <%= f.hidden_field :flag, value: "true" %>
       <%= f.submit "検索" %>
     <% end %>
 

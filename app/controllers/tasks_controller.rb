@@ -6,21 +6,11 @@ class TasksController < ApplicationController
     # binding.pry
     @statues = ["未着手","着手中","完了"]
     @search = Task.ransack(params[:q])
+    @tasks = @search.result(distinct: true)
 
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: :asc)
-    else
-      @tasks = @search.result
     end
-
-    # if params[:sort_expired]
-    #   @tasks = Task.all.order(deadline: :asc)
-    # else
-    #   @tasks = @search.result
-    # end
-
-    # <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
-
   end
 
   def new
