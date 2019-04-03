@@ -14,7 +14,7 @@
 - user_id:references
 - title:string
 - content:text
-- status:integer
+- status:string
 - deadline:datetime
 - priority:integer
 
