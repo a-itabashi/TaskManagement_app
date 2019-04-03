@@ -66,4 +66,28 @@ RSpec.feature "タスク管理機能", type: :feature do
     click_on "検索"
     expect(page).not_to have_content "testesttest"
   end
+
+  scenario "タスク名のみで検索をし、期待する検索結果が出力されるか" do
+    visit root_path
+    fill_in "タスク名検索", with: "test"
+    select "", from: "q_status_cont"
+    click_on "検索"
+    expect(page).to have_content "testesttest" 
+  end
+
+  scenario "状態検索のみで検索をし、期待する検索結果が出力されるか" do
+    visit root_path
+    fill_in "タスク名検索", with: ""
+    select "着手中", from: "q_status_cont"
+    click_on "検索"
+    expect(page).to have_content "着手中" 
+  end
+
+  scenario "タスク名・状態検索共に、何も入力されずに、期待する検索結果が出力されるか" do
+    visit root_path
+    fill_in "タスク名検索", with: ""
+    select "", from: "q_status_cont"
+    click_on "検索"
+    expect(page).to have_content "testesttest" && "samplesample" && "未着手" && "着手中" && "完了"
+  end
 end
