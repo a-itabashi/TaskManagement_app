@@ -1,24 +1,24 @@
 <%= link_to "トップ", root_path %>
 
 <h1>タスク一覧</h1>
-<table border="1">
-  <thead>
-    <tr>
-      <th>タスク名</th>
-      <th>詳細</th>
-      <th><%= sort_link(@search, :deadline, '終了期限') %></th>
-      <th>状態</th>
-    </tr>
-  </thead>
-  <tbody>
-
-    <%= search_form_for @search do |f| %>
+ <%= search_form_for @q do |f| %>
       <%= f.label :title_cont, "タスク名検索" %>
       <%= f.search_field :title_cont %>
       <%= f.label :status_cont, "状態検索" %>
       <%= f.select :status_cont, @statues, include_blank: true %>
       <%= f.submit "検索" %>
     <% end %>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>タスク名</th>
+      <th>詳細</th>
+      <th><%= sort_link(@q, :deadline, '終了期限') %></th>
+      <th>状態</th>
+    </tr>
+  </thead>
+  <tbody>
 
     <% @tasks.each do |task| %>
       <tr>

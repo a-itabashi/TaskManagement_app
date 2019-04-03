@@ -3,10 +3,10 @@ class TasksController < ApplicationController
 
 
   def index
-    # binding.pry
     @statues = ["未着手","着手中","完了"]
-    @search = Task.ransack(params[:q])
-    @tasks = @search.result(distinct: true)
+    
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result
 
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: :asc)
