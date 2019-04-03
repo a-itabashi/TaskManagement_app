@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
 
   def index
+    # form_withで終了期限順、statusの検索を一括する
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: :asc)
     else
@@ -48,7 +49,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :deadline)
+    params.require(:task).permit(:title, :content, :deadline, :status)
   end
 
   def set_params

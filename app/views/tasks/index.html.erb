@@ -5,6 +5,7 @@
       <th>タスク名</th>
       <th>詳細</th>
       <th>終了期限</th>
+      <th>状態</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,7 @@
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= task.deadline.strftime("%Y年%m月%d日")%></td>
+        <td><%= task.status %></td>
         <td><%= link_to "詳細", task %></td>
         <td><%= link_to "編集", edit_task_path(task) %></td>
         <td><%= link_to "削除", task, method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
