@@ -47,10 +47,10 @@ RSpec.feature "タスク管理機能", type: :feature do
  
   scenario "終了期限ボタンを押したらタスクが終了期限を元にソートされているか" do
     visit root_path
-    click_on "終了期限でソートする"
-    task_1 = Task.first
-    task_2 = Task.second
-    expect(task_1.id).to be < task_2.id
+    click_on "終了期限でソートする(期限が近い順に)"
+    task_titles = page.all('.task_title').map(&:text)
+    expect(task_titles[0]).to have_content "samplesample"
+    expect(task_titles[1]).to have_content "testesttest"
   end
 
   scenario "タスク名・状態検索をし、期待する検索結果が出力されるか" do
@@ -103,14 +103,13 @@ RSpec.feature "タスク管理機能", type: :feature do
     select "高", from: "優先順位"
     click_on "作成する"
     expect(page).to have_content "test@gmail.com" && "テストの内容だよ" && "2020年04月01日" && "着手中" && "高"
-
   end
 
   scenario "タスク一覧を、優先順位で高い順にソートできるか" do
     visit root_path
-    click_on "優先順位でソートする"
-    task_1 = Task.first
-    task_2 = Task.second
-    expect(task_1.id).to be < task_2.id
+    click_on "優先順位でソートする(高い順に)"
+    task_titles = page.all('.task_title').map(&:text)
+    expect(task_titles[0]).to have_content "samplesample"
+    expect(task_titles[1]).to have_content "testesttest"
   end
 end
