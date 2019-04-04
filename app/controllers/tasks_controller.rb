@@ -7,15 +7,23 @@ class TasksController < ApplicationController
     @priorities = {高: 0, 中: 1, 低: 2}
     
     @q = Task.ransack(params[:q])
-    @tasks = @q.result
+    @tasks = @q.result.page(params[:page]).per(5)
 
     if params[:sort_expired]
-      @tasks = Task.all.order(deadline: :asc)
+      @tasks = Task.page(params[:page]).per(5).order(deadline: :asc)
     end
 
     if params[:sort_priority_expired]
-      @tasks = Task.all.order(priority: :asc)
+      @tasks = Task.page(params[:page]).per(5).order(priority: :asc)
     end
+
+    # if params[:sort_expired]
+    #   @tasks = Task.all.order(deadline: :asc)
+    # end
+
+    # if params[:sort_priority_expired]
+    #   @tasks = Task.all.order(priority: :asc)
+    # end
   end
 
   def new
