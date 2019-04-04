@@ -7,3 +7,10 @@ ja:
         title: "タスク名"
         content: "詳細"
         deadline: "終了期限"
+        priority: "優先順位"
+    enums:
+      task:
+        priority:
+          high: "高"
+          middle: "中" 
+          low: "低"

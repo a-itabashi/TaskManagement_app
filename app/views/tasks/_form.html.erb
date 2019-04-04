@@ -28,6 +28,10 @@
     <%= f.select :status, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]] %>
   </div>
   <div>
+    <%= f.label :priority, "優先順位" %>
+    <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+  </div>
+  <div>
     <%= f.submit "作成する" %>
   </div>
   <div>
