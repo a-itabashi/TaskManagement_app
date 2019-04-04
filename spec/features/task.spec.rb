@@ -90,4 +90,12 @@ RSpec.feature "タスク管理機能", type: :feature do
     click_on "検索"
     expect(page).to have_content "testesttest" && "samplesample" && "着手中" && "未着手" && "2019年04月10日" && "2019年04月01日"
   end
+
+  scenario "優先順位(高中低)を登録できるか" do
+
+  end
+
+  scenario "タスク一覧を、優先順位で高い順にソートできるか" do
+
+  end
 end
