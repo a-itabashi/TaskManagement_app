@@ -1,17 +1,15 @@
-<%= link_to "トップ", root_path %>
-
 <h1>タスク一覧</h1>
- <%= search_form_for @q do |f| %>
-      <%= f.label :title_cont, "タスク名検索" %>
-      <%= f.search_field :title_cont %>
-      <%= f.label :status_cont, "状態検索" %>
-      <%= f.select :status_cont, @statues, include_blank: true %>
-      <%= f.label :priority_eq, "優先順位" %>
-      <%= f.select :priority_eq, @priorities, include_blank: true %>
-      <%= f.submit "検索" %>
-    <% end %>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :title_cont, "タスク名検索" %>
+    <%= f.search_field :title_cont %>
+    <%= f.label :status_cont, "状態検索" %>
+    <%= f.select :status_cont, @statues, include_blank: true %>
+    <%= f.label :priority_eq, "優先順位" %>
+    <%= f.select :priority_eq, @priorities, include_blank: true %>
+    <%= f.submit "検索" %>
+  <% end %>
 
-<table border="1">
+<table class="table">
   <thead>
     <tr>
       <th>タスク名</th>
