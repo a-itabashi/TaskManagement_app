@@ -88,6 +88,6 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in "タスク名検索", with: ""
     select "", from: "q_status_cont"
     click_on "検索"
-    expect(page).to have_content "testesttest" && "samplesample" && "着手中" && "未着手"
+    expect(page).to have_content "testesttest" && "samplesample" && "着手中" && "未着手" && "2019年04月10日" && "2019年04月01日"
   end
 end
