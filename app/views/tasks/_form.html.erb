@@ -29,7 +29,7 @@
   </div>
   <div>
     <%= f.label :priority, "優先順位" %>
-    <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+    <%= f.select :priority, Task.priorities_i18n.keys.map {|k| [Task.priorities_i18n[k], k]} %>
   </div>
   <div>
     <%= f.submit "作成する" %>

@@ -4,12 +4,17 @@ class TasksController < ApplicationController
 
   def index
     @statues = ["未着手","着手中","完了"]
+    @priorities = {高: 0, 中: 1, 低: 2}
     
     @q = Task.ransack(params[:q])
     @tasks = @q.result
 
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: :asc)
+    end
+
+    if params[:sort_priority_expired]
+      @tasks = Task.all.order(priority: :asc)
     end
   end
 
@@ -51,7 +56,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status)
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority)
   end
 
   def set_params

@@ -7,6 +7,7 @@ FactoryBot.define do
     content { 'Factoryで作ったデフォルトのコンテント１' }
     deadline { '2019-04-02' }
     status {'未着手'}
+    priority {2}
   end
 
   # 作成するテストデータの名前を「second_task」とします
@@ -16,5 +17,6 @@ FactoryBot.define do
     content { 'Factoryで作ったデフォルトのコンテント２' }
     deadline { '2019-04-01' }
     status {'完了'}
+    priority {3}
   end
 end
