@@ -12,7 +12,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "ログインが正常に出来るかどうか" do
-    user = FactoryBot.create(:user)
+    user = FactoryBot.create(:user_1)
     visit root_path
     click_on "ログイン"
     fill_in "メールアドレス", with: "test@gmail.com"
@@ -22,7 +22,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "ログアウトが正常に出来るかどうか" do
-    user = FactoryBot.create(:user)
+    user = FactoryBot.create(:user_1)
     visit root_path
     click_on "ログイン"
     fill_in "メールアドレス", with: "test@gmail.com"
