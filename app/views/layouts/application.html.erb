@@ -18,12 +18,25 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <%= link_to "タスクを作成する", new_task_path, class: "nav-link" %>         
-          </li>
-          <li class="nav-item active">
-            <%= link_to "ユーザー登録", new_user_path, class: "nav-link" %>         
-          </li>
+          <% if logged_in? %>
+            <li class="nav-item active">
+              <%= link_to "タスクを作成する", new_task_path, class: "nav-link" %>         
+            </li>
+            <li class="nav-item active">
+              <%= link_to "#{current_user.name}さんの情報", user_path(current_user.id), class: "nav-link" %>         
+            </li>
+            <li class="nav-item active">
+              <%= link_to "ログアウト", session_path(current_user.id), method: :delete,class: "nav-link" %>         
+            </li>
+          <% else %>
+            <li class="nav-item active">
+              <%= link_to "ユーザー登録", new_user_path, class: "nav-link" %>         
+            </li>
+            <li class="nav-item active">
+              <%= link_to "ログイン", new_session_path, class: "nav-link" %>         
+            </li>
+          <% end %>
+
         </ul>
       </div>
     </nav>

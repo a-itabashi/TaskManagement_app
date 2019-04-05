@@ -8,6 +8,9 @@ FactoryBot.define do
     deadline { '2019-04-02' }
     status {'未着手'}
     priority {2}
+    user_id {1}
+
+    user
   end
 
   # 作成するテストデータの名前を「second_task」とします
@@ -18,5 +21,8 @@ FactoryBot.define do
     deadline { '2019-04-01' }
     status {'完了'}
     priority {3}
+    user_id {2}
+
+    user
   end
 end

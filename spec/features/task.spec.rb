@@ -2,8 +2,16 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-  FactoryBot.create(:task ,title:"testesttest", deadline:"2019-04-10", status:"着手中", priority: 2) 
-  FactoryBot.create(:second_task, title:"samplesample", deadline:"2019-04-01", status:"完了",priority:0)
+
+  
+  # user_1 = User.create(name: "testマン", email:"test@gmail.com", password:"testtest")
+  # user_2 = User.create(name: "productマン", email:"product@gmail.com", password:"productproduct")
+  
+
+  # user_1.create(title:"testesttest", deadline:"2019-04-10", status:"着手中", priority: 2)
+  # user_2.create(title:"samplesample", deadline:"2019-04-01", status:"完了",priority:0)
+  # FactoryBot.create(:task ,title:"testesttest", deadline:"2019-04-10", status:"着手中", priority: 2, user_id: 1) 
+  # FactoryBot.create(:second_task, title:"samplesample", deadline:"2019-04-01", status:"完了",priority:0, user_id: 2)
   end
 
   scenario "タスク一覧のテスト" do
