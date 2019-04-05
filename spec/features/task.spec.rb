@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-  FactoryBot.create(:task ,title:"testesttest", deadline:"2019-04-10") 
+  FactoryBot.create(:task ,title:"testesttest", deadline:"2019-04-10", status:"着手中") 
   FactoryBot.create(:second_task, title:"samplesample", deadline:"2019-04-01")
   end
 
@@ -49,5 +49,45 @@ RSpec.feature "タスク管理機能", type: :feature do
     task_1 = Task.first
     task_2 = Task.second
     expect(task_1.id).to be < task_2.id
+  end
+
+  scenario "タスク名・状態検索をし、期待する検索結果が出力されるか" do
+    visit root_path
+    fill_in "タスク名検索", with: "test"
+    select "着手中", from: "q_status_cont"
+    click_on "検索"
+    expect(page).to have_content "testesttest" && "着手中"
+  end
+
+  scenario "存在しないタスク名で検索をし、何も表示されないか" do
+    visit root_path
+    fill_in "タスク名検索", with: "令和"
+    select "", from: "q_status_cont"
+    click_on "検索"
+    expect(page).not_to have_content "testesttest"
+  end
+
+  scenario "タスク名のみで検索をし、期待する検索結果が出力されるか" do
+    visit root_path
+    fill_in "タスク名検索", with: "test"
+    select "", from: "q_status_cont"
+    click_on "検索"
+    expect(page).to have_content "testesttest" 
+  end
+
+  scenario "状態検索のみで検索をし、期待する検索結果が出力されるか" do
+    visit root_path
+    fill_in "タスク名検索", with: ""
+    select "着手中", from: "q_status_cont"
+    click_on "検索"
+    expect(page).to have_content "着手中" 
+  end
+
+  scenario "タスク名・状態検索共に、何も入力されずに、期待する検索結果が出力されるか" do
+    visit root_path
+    fill_in "タスク名検索", with: ""
+    select "", from: "q_status_cont"
+    click_on "検索"
+    expect(page).to have_content "testesttest" && "samplesample" && "着手中" && "未着手" && "2019年04月10日" && "2019年04月01日"
   end
 end

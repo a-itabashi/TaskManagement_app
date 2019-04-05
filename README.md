@@ -14,7 +14,7 @@
 - user_id:references
 - title:string
 - content:text
-- status:integer
+- status:string(未着手・着手中・完了）
 - deadline:datetime
 - priority:integer
 

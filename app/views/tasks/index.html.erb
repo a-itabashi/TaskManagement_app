@@ -1,18 +1,31 @@
+<%= link_to "トップ", root_path %>
+
 <h1>タスク一覧</h1>
+ <%= search_form_for @q do |f| %>
+      <%= f.label :title_cont, "タスク名検索" %>
+      <%= f.search_field :title_cont %>
+      <%= f.label :status_cont, "状態検索" %>
+      <%= f.select :status_cont, @statues, include_blank: true %>
+      <%= f.submit "検索" %>
+    <% end %>
+
 <table border="1">
   <thead>
     <tr>
       <th>タスク名</th>
       <th>詳細</th>
-      <th>終了期限</th>
+      <th><%= sort_link(@q, :deadline, '終了期限') %></th>
+      <th>状態</th>
     </tr>
   </thead>
   <tbody>
+
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= task.deadline.strftime("%Y年%m月%d日")%></td>
+        <td><%= task.status %></td>
         <td><%= link_to "詳細", task %></td>
         <td><%= link_to "編集", edit_task_path(task) %></td>
         <td><%= link_to "削除", task, method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
@@ -28,5 +41,8 @@
 </div>
 &nbsp
 <div>
-  <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+  <%= link_to "終了期限でソートする", root_path(sort_expired: "true") %>
 </div>
+
+
+
