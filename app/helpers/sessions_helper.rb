@@ -6,4 +6,8 @@ module SessionsHelper
   def logged_in?
     current_user.present?
   end
+
+  def not_logged_in?
+    current_user.nil?
+  end
 end
