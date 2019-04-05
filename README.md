@@ -16,7 +16,7 @@
 - content:text
 - status:string(未着手・着手中・完了）
 - deadline:datetime
-- priority:integer
+- priority:integer(高:0・中:1・低:2)
 
 ### labelテーブル
 - task_id:references

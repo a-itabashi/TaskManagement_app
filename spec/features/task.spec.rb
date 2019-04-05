@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-  FactoryBot.create(:task ,title:"testesttest", deadline:"2019-04-10", status:"着手中") 
-  FactoryBot.create(:second_task, title:"samplesample", deadline:"2019-04-01")
+  FactoryBot.create(:task ,title:"testesttest", deadline:"2019-04-10", status:"着手中", priority: 2) 
+  FactoryBot.create(:second_task, title:"samplesample", deadline:"2019-04-01", status:"完了",priority:0)
   end
 
   scenario "タスク一覧のテスト" do
@@ -11,6 +11,8 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(page).to have_content "testesttest"
     expect(page).to have_content "samplesample"
     expect(page).to have_content "2019年04月01日"
+    expect(page).to have_content "完了"
+    expect(page).to have_content "低"
   end
 
   scenario "タスク作成のテスト" do
@@ -45,10 +47,10 @@ RSpec.feature "タスク管理機能", type: :feature do
  
   scenario "終了期限ボタンを押したらタスクが終了期限を元にソートされているか" do
     visit root_path
-    click_on "終了期限でソートする"
-    task_1 = Task.first
-    task_2 = Task.second
-    expect(task_1.id).to be < task_2.id
+    click_on "終了期限でソートする(期限が近い順に)"
+    task_titles = page.all('.task_title').map(&:text)
+    expect(task_titles[0]).to have_content "samplesample"
+    expect(task_titles[1]).to have_content "testesttest"
   end
 
   scenario "タスク名・状態検索をし、期待する検索結果が出力されるか" do
@@ -89,5 +91,25 @@ RSpec.feature "タスク管理機能", type: :feature do
     select "", from: "q_status_cont"
     click_on "検索"
     expect(page).to have_content "testesttest" && "samplesample" && "着手中" && "未着手" && "2019年04月10日" && "2019年04月01日"
+  end
+
+  scenario "優先順位(高中低)を登録できるか" do
+    Task.delete_all
+    visit new_task_path
+    fill_in "タスク名", with: "test@gmail.com"
+    fill_in "詳細", with: "テストの内容だよ"
+    fill_in "終了期限", with: "2020/04/01"
+    select "着手中", from: "状態検索"
+    select "高", from: "優先順位"
+    click_on "作成する"
+    expect(page).to have_content "test@gmail.com" && "テストの内容だよ" && "2020年04月01日" && "着手中" && "高"
+  end
+
+  scenario "タスク一覧を、優先順位で高い順にソートできるか" do
+    visit root_path
+    click_on "優先順位でソートする(高い順に)"
+    task_titles = page.all('.task_title').map(&:text)
+    expect(task_titles[0]).to have_content "samplesample"
+    expect(task_titles[1]).to have_content "testesttest"
   end
 end
