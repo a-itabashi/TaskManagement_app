@@ -84,7 +84,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク名・状態検索をし、期待する検索結果が出力されるか" do
-    visit tasks_path
     fill_in "タスク名検索", with: "test"
     select "着手中", from: "q_status_cont"
     click_on "検索"
@@ -92,7 +91,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "存在しないタスク名で検索をし、何も表示されないか" do
-    visit tasks_path
     fill_in "タスク名検索", with: "令和"
     select "", from: "q_status_cont"
     click_on "検索"
@@ -100,7 +98,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク名のみで検索をし、期待する検索結果が出力されるか" do
-    visit tasks_path
     fill_in "タスク名検索", with: "タイトルC"
     select "", from: "q_status_cont"
     click_on "検索"
@@ -108,7 +105,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "状態検索のみで検索をし、期待する検索結果が出力されるか" do
-    visit tasks_path
     fill_in "タスク名検索", with: ""
     select "着手中", from: "q_status_cont"
     click_on "検索"
@@ -116,7 +112,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク名・状態検索共に、何も入力されずに、期待する検索結果が出力されるか" do
-    visit tasks_path
     fill_in "タスク名検索", with: ""
     select "", from: "q_status_cont"
     click_on "検索"
@@ -136,10 +131,14 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク一覧を、優先順位で高い順にソートできるか" do
-    visit tasks_path
     click_on "優先順位でソートする(高い順に)"
     task_titles = page.all('.task_title').map(&:text)
     expect(task_titles[0]).to have_content "タイトルC"
     expect(task_titles[1]).to have_content "タイトルD"
+  end
+
+  scenario "タスク一覧に自分が作成したタスクのみ表示されているか" do
+    expect(page).not_to have_content "タイトルA"
+    expect(page).not_to have_content "タイトルB"
   end
 end

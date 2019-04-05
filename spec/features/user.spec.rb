@@ -12,7 +12,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "ログインが正常に出来るかどうか" do
-    user = FactoryBot.create(:user_1)
+    FactoryBot.create(:user_1)
     visit root_path
     click_on "ログイン"
     fill_in "メールアドレス", with: "test@gmail.com"
@@ -22,7 +22,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "ログアウトが正常に出来るかどうか" do
-    user = FactoryBot.create(:user_1)
+    FactoryBot.create(:user_1)
     visit root_path
     click_on "ログイン"
     fill_in "メールアドレス", with: "test@gmail.com"
@@ -37,4 +37,25 @@ RSpec.feature "タスク管理機能", type: :feature do
      expect(page).to have_content "ログイン" && "ログインして下さい"
   end
 
+  scenario "ログインしている時は、ユーザー登録画面（new画面）に行かないかどうか" do
+     FactoryBot.create(:user_1)
+     visit root_path
+     click_on "ログイン"
+     fill_in "メールアドレス", with: "test@gmail.com"
+     fill_in "パスワード", with: "password"
+     click_on "ログインする"
+     visit new_user_path
+     expect(page).to have_content "タスク一覧" && "ログイン済みです"
+  end
+
+  scenario "自分以外のマイページに行かないかどうか" do
+     FactoryBot.create(:user_1)
+     visit root_path
+     click_on "ログイン"
+     fill_in "メールアドレス", with: "test@gmail.com"
+     fill_in "パスワード", with: "password"
+     click_on "ログインする"
+     visit user_path(2)
+     expect(page).to have_content "タスク一覧" && "アクセスできません"
+  end
 end

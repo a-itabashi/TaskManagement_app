@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :not_allow, only: %i[new]
+  before_action :not_allow_new, only: %i[new]
+  before_action :not_allow_show, only: %i[show]
 
   def new
     @user = User.new
@@ -27,10 +28,18 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def not_allow
+  def not_allow_new
     if logged_in?
       flash[:info] = "ログイン済みです"
       redirect_to tasks_path
+    end
+  end
+
+  def not_allow_show 
+    @user = User.find(params[:id]) 
+    unless current_user.id == @user.id
+    flash[:info] = "アクセスできません"
+    redirect_to tasks_path
     end
   end
 end
