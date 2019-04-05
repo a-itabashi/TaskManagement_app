@@ -29,7 +29,7 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
-      flash[:notice] = "タスクを登録しました"
+      flash[:success] = "タスクを登録しました"
       redirect_to tasks_path
     else
       render :new
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:notice] = "タスクを更新しました"
+      flash[:success] = "タスクを更新しました"
       redirect_to tasks_path
     else
       render 'edit'
@@ -53,7 +53,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    flash[:notice] = "タスクを削除しました"
+    flash[:info] = "タスクを削除しました"
     redirect_to tasks_path
   end
 
@@ -69,8 +69,8 @@ class TasksController < ApplicationController
 
   def user_logged_in?
     if not_logged_in?
-      flash[:info] = "ログインまたは会員登録をして下さい"
-      redirect_to root_path
+      flash[:info] = "ログインして下さい"
+      redirect_to new_session_path
     end
   end
 

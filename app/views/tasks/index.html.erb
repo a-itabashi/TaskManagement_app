@@ -28,7 +28,7 @@
         <td><%= task.deadline.strftime("%Y年%m月%d日")%></td>
         <td><%= task.status %></td>
         <td><%= task.priority_i18n %>
-        <td><%= link_to "詳細", task %></td>
+        <td class="task_show"><%= link_to "詳細", task %></td>
         <td><%= link_to "編集", edit_task_path(task) %></td>
         <td><%= link_to "削除", task, method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
       </tr>
@@ -40,15 +40,15 @@
  <%= paginate @tasks %>
 &nbsp
 <div>
-  <%= link_to "タスクを作成する", new_task_path %>
+  <%= link_to "タスクを作成する", new_task_path, class: "new_task" %>
 </div>
 &nbsp
 <div>
-  <%= link_to "終了期限でソートする(期限が近い順に)", root_path(sort_expired: "true") %>
+  <%= link_to "終了期限でソートする(期限が近い順に)", tasks_path(sort_expired: "true") %>
 </div>
 &nbsp
 <div>
-  <%= link_to "優先順位でソートする(高い順に)", root_path(sort_priority_expired: "true") %>
+  <%= link_to "優先順位でソートする(高い順に)", tasks_path(sort_priority_expired: "true") %>
 </div>
 
 
