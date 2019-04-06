@@ -23,7 +23,6 @@
     </tr>
   </thead>
   <tbody>
-
     <% @tasks.each do |task| %>
       <tr>
         <td class="task_title"><%= task.title %></td>
@@ -36,8 +35,6 @@
         <td><%= link_to "削除", task, method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
       </tr>
     <% end %>
-    <tr>
-    </tr>
   </tbody>
 </table>
  <%= paginate @tasks %>
