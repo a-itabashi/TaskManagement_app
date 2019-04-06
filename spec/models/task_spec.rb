@@ -10,8 +10,10 @@ RSpec.describe Task, type: :model do
     expect(task).not_to be_valid
   end
 
-  it "titleとcontentに内容が記載されていればバリデーションが通る" do
-    task = Task.new(title: "成功テスト", content:"成功テスト")
+  it "titleとcontentとdeadlineに内容が記載されていればバリデーションが通る" do
+    user = FactoryBot.create(:user_1)
+    task = Task.new(title: "成功テスト", content:"成功テスト", deadline:"2020/04/01")
+    task.user_id = user.id
     expect(task).to be_valid
   end
 end

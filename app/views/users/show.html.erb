@@ -1,0 +1,30 @@
+<h1><%= current_user.name %>さんの情報</h1>
+
+<table class="table table-bordered text-center">
+
+<tr>
+  <th>名前</th>
+  <td><%= @user.name %></td>
+<tr>
+<tr>
+  <th>メールアドレス</th>
+  <td><%= @user.email %></td>
+</tr>
+</table>
+
+<h2><%= current_user.name %>さんのタスク一覧</h2>
+
+<table class="table table-striped table-bordered text-center">
+  <tr>
+    <th>タスク名</th>
+    <th></th>
+  </tr>
+<% @tasks.each do |task| %>
+  <tr>
+   <td><%= task.title %></td>
+   <td><%= link_to "詳細", task_path(task.id) %>
+  </tr>
+
+<% end %>
+</table>
+

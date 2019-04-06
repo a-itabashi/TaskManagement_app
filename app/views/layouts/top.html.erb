@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaskManagementApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to "タスク管理アプリ", root_path, class: "navbar-brand" %>     
+    </nav>
+    <div class="container">
+      <!-- flashメッセージの表示 -->
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+        <%= yield %>
+    </div>
+    <div class="container-fluid">
+    <footer class="footer">
+      <p>Powered by Aguru Itabashi</p>
+    </footer>
+    </div>
+  </body>
+</html>
