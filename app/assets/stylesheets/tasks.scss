@@ -1,7 +1,3 @@
-// Place all the styles related to the tasks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .x-scroll {
 overflow: auto;
 }
@@ -9,14 +5,14 @@ overflow: auto;
 width:100%;
 }
 .x-scroll::-webkit-scrollbar{
-height: 5px; /* スクロールバーの高さ */
+height: 5px; 
 }
 .x-scroll::-webkit-scrollbar-track{
-background: #F1F1F1; /* スクロールバーの背景色 */
+background: #F1F1F1; 
 }
 .x-scroll::-webkit-scrollbar-thumb {
-background: #d6d6d6; /* スクロールバーの色 */
+background: #d6d6d6; 
 }
 .x-scroll td, .x-scroll th{
-white-space: nowrap;　/* 文字の折返しを禁止 */
+white-space: nowrap;
 }
