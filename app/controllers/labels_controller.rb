@@ -1,5 +1,6 @@
 class LabelsController < ApplicationController
   before_action :admin_allow
+  
   def index
     @labels = Label.all
   end
@@ -18,9 +19,12 @@ class LabelsController < ApplicationController
       render 'new'
     end
   end
+
   def destroy
-
-
+    @label = Label.find(params[:id])
+    @label.destroy
+    flash[:info] = "ラベルを削除しました"
+    redirect_to labels_path
   end
 
   private
