@@ -24,6 +24,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.labels.build
   end
 
   def create

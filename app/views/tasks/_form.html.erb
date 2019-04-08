@@ -31,6 +31,15 @@
     <%= f.label :priority, "優先順位" %>
     <%= f.select :priority, Task.priorities_i18n.keys.map {|k| [Task.priorities_i18n[k], k]} %>
   </div>
+
+  <%= f.fields_for :labels do |l| %>
+    <%= l.label :type , "ラベル名" %>
+    <% Label.all.each do |label| %>
+    <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false},label[:id] %>
+    <%= label.content %>
+    <% end %> 
+  <% end %>
+
   <div class="form-group">
     <%= f.submit "作成する" %>
   </div>

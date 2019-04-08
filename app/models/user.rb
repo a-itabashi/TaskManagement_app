@@ -7,6 +7,7 @@ class User < ApplicationRecord
   before_save { email.downcase! }
   has_secure_password
   has_many :tasks, dependent: :destroy
+  has_many :labels
 
   before_destroy :delete_admin
 

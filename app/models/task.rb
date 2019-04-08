@@ -7,4 +7,9 @@ class Task < ApplicationRecord
   enum priority: {high: 0, middle: 1, low: 2}
 
   belongs_to :user
+
+  has_many :favorites, dependent: :destroy
+
+  has_many :labels
+  accepts_nested_attributes_for :labels
 end
