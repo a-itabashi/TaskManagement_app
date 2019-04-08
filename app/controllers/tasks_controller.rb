@@ -74,9 +74,16 @@ class TasksController < ApplicationController
     end
   end
 
-  def not_show
-    unless @task.user_id === current_user.id
+  def admin_allow
+    unless current_user.try(:admin?)
       redirect_to tasks_path
     end
+  end
+
+  def not_show
+     unless current_user.try(:admin) || @task.user_id == current_user.id
+       flash[:info] = "アクセスできません"
+       redirect_to tasks_path
+     end
   end
 end

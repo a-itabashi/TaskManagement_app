@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root to: 'tops#index'
   resources :tasks
   namespace :admin do
-    resources :users, only: %i[new create show]
+    resources :users
   end
+  resources :users
   resources :sessions, only: %i[new create destroy]
 end

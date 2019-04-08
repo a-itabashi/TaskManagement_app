@@ -1,1 +1,27 @@
-index.html.erb
+<h1>ユーザー一覧</h1>
+
+<div class="x-scroll">
+<table class="table">
+  <thead>
+    <tr>
+      <th>ユーザー名</th>
+      <th>メールアドレス</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td class="admin_show"><%= link_to "詳細", user %></td>
+        <td><%= link_to "編集", edit_admin_user_path(user.id) %></td>
+        <td><%= link_to "削除", admin_user_path(user), method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+ <%= paginate @users %>
