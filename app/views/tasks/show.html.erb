@@ -1,35 +1,35 @@
 <h1>タスクの詳細</h1>
 
-<table class="table table-bordered text-center">
-
-<tr>
-  <th>タスク名</th>
-  <td><%= @task.title %></td>
-<tr>
-<tr>
-  <th>詳細</th>
-  <td><%= @task.content %></td>
-</tr>
-<tr>
-  <th>終了期限</th>
-  <td><%= @task.deadline.strftime("%Y年%m月%d日") %></td>
-</tr>
-<tr>
-  <th>状態</th>
-  <td><%= @task.status %></td>
-</tr>
-<tr>
-  <th>優先順位</th>
-  <td><%= @task.priority_i18n %></td>
-</tr>
-<tr>
-  <th>ラベル</th>
-  <% @task.favorites_labels.each do |l| %>
-  <td><%= l.content %></td>
-  <% end %>
-</tr>
-
-</table>
+<div class="x-scroll">
+  <table class="table table-bordered text-center">
+  <tr>
+    <th>タスク名</th>
+    <td><%= @task.title %></td>
+  <tr>
+  <tr>
+    <th>詳細</th>
+    <td><%= @task.content %></td>
+  </tr>
+  <tr>
+    <th>終了期限</th>
+    <td><%= @task.deadline.strftime("%Y年%m月%d日") %></td>
+  </tr>
+  <tr>
+    <th>状態</th>
+    <td><%= @task.status %></td>
+  </tr>
+  <tr>
+    <th>優先順位</th>
+    <td><%= @task.priority_i18n %></td>
+  </tr>
+  <tr>
+    <th>ラベル</th>
+    <% @task.favorites_labels.each do |l| %>
+    <td><%= l.content %></td>
+    <% end %>
+  </tr>
+  </table>
+</div>
 <div>
   <%= link_to "戻る", tasks_path %>
 </div>

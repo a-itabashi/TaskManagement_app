@@ -49,12 +49,27 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = current_user.tasks.build(task_params)
     if @task.update(task_params)
-      flash[:success] = "タスクを更新しました"
+      i = 0
+      while i <  @task.label_ids.length  do
+        @task.favorites.create(label_id: @task.label_ids[i])
+        i += 1
+      end
+      flash[:success] = "タスクを編集しました"
       redirect_to tasks_path
     else
-      render 'edit'
+      render :edit
     end
+
+
+
+    # if @task.update(task_params)
+    #   flash[:success] = "タスクを更新しました"
+    #   redirect_to tasks_path
+    # else
+    #   render 'edit'
+    # end
   end
 
   def destroy
