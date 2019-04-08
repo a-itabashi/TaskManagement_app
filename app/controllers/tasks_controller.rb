@@ -30,15 +30,11 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
-      binding.pry
-      @task.favorites.create(label_id: @task.label_ids)
-
-      # arr = [:task][:label_ids]
-      # i = 0
-      # for i < (arr.lengh) do
-      #   @task.favorites.create(label_id: arr[i])
-      #   i += 1
-      # end
+      i = 0
+      while i <  @task.label_ids.length  do
+        @task.favorites.create(label_id: @task.label_ids[i])
+        i += 1
+      end
       flash[:success] = "タスクを登録しました"
       redirect_to tasks_path
     else
