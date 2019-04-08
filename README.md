@@ -21,7 +21,7 @@
 
 ### labelテーブル
 - task_id:references
-- type:string
+- content:string
 
 # Herokuへのデプロイ方法
 1. github上のissueについて、PRをあげる。
