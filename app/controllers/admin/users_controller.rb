@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :user_admin?
+  # before_action :user_admin?
   before_action :user_params, only: %i[show edit update destroy]
 
   def index
@@ -33,12 +33,12 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def user_admin?
-    unless current_user.try(:admin?)
-      flash[:danger] = "アクセス権限がありません"
-      redirect_to root_path
-    end
-  end
+  # def user_admin?
+  #   unless current_user.try(:admin?)
+  #     flash[:danger] = "アクセス権限がありません"
+  #     redirect_to root_path
+  #   end
+  # end
 
   def set_params
     params.require(:user).permit(:name,:email, :password, :password_confirmation)

@@ -1,2 +1,20 @@
-<h1>Labels#index</h1>
-<p>Find me in app/views/labels/index.html.erb</p>
+<div class="x-scroll">
+<table class="table">
+  <thead>
+    <tr>
+      <th>ラベル名</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @labels.each do |l| %>
+      <tr>
+        <td><%= l.content %></td>
+        <td><%= link_to "削除", label_path(l), method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+&nbsp
+<%= link_to "ラベルを作成する", new_label_path %>

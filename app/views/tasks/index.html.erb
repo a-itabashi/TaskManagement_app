@@ -30,10 +30,10 @@
         <td><%= task.content %></td>
         <td><%= task.deadline.strftime("%Y年%m月%d日")%></td>
         <td><%= task.status %></td>
-        <td><%= task.priority_i18n %>
+        <td class="text-center"><%= task.priority_i18n %>
         <td class="task_show"><%= link_to "詳細", task %></td>
         <td><%= link_to "編集", edit_task_path(task) %></td>
-        <td><%= link_to "削除", task, method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
+        <td><%= link_to "削除", task_path(task), method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
       </tr>
     <% end %>
   </tbody>

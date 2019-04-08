@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'labels/new'
-  get 'labels/index'
   root to: 'tops#index'
   resources :tasks
   namespace :admin do
@@ -8,4 +6,5 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :sessions, only: %i[new create destroy]
+  resources :labels
 end

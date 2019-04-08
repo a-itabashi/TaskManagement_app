@@ -22,6 +22,12 @@
   <th>優先順位</th>
   <td><%= @task.priority_i18n %></td>
 </tr>
+<tr>
+  <th>ラベル</th>
+  <% @task.favorites_labels.each do |l| %>
+  <td><%= l.content %></td>
+  <% end %>
+</tr>
 
 </table>
 <div>
