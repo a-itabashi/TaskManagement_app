@@ -7,4 +7,15 @@ class User < ApplicationRecord
   before_save { email.downcase! }
   has_secure_password
   has_many :tasks, dependent: :destroy
+
+  before_destroy :delete_admin
+
+  private
+
+  def delete_admin
+    if self.admin.count <= 1
+       flash[:danger] = "管理者を居なくなってしまうため、削除できません"
+       redirect_to admin_user_path
+    end
+  end
 end

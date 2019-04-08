@@ -10,6 +10,14 @@
   <th>メールアドレス</th>
   <td><%= @user.email %></td>
 </tr>
+
+<% if current_user.try(:admin?) %>
+  <tr>
+    <th>管理者権限の有無</th>
+    <td><%= @user.admin ? "有り" : "無し" %></td>
+  </tr>
+<% end %>
+
 <tr>
   <th></th>
   <td><%= link_to "編集", edit_admin_user_path(@user) %></td>

@@ -18,5 +18,17 @@
     <%= f.password_field :password_confirmation,class: "form-control" %>
   </div>
 
-  <%= f.submit "登録する" %>
+  <% if current_user.try(:admin?) %>
+  <div class="form-group">
+    <label>
+      <%= f.radio_button :admin, "false" %> 管理者権限を与えない 
+    </label>
+    <label>
+      <%= f.radio_button :admin, "true" %> 管理者権限を与える</label>
+    </label>
+  </div>
+  <% end %>
+  <div>
+    <%= f.submit "登録する" %>
+  </div>
 <% end %>

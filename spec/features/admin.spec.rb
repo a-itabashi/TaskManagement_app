@@ -76,14 +76,25 @@ RSpec.feature "管理ユーザー機能", type: :feature do
         expect(page).to have_content "ユーザー情報を更新しました"
       end
 
-      scenario "ユーザ-を削除できるかどうか" do
+      # テスト実施済み
+      # scenario "ユーザ-を削除できるかどうか" do
+      #   user = User.all
+      #   user.delete_all
+      #   admin_user = FactoryBot.create(:admin)
+      #   admin_login
+      #   click_on "ユーザー一覧"
+      #   click_on "削除"
+      #   expect(page).to have_content "アクセス権限がありません"
+      # end
+
+      scenario "管理者が誰も居なくなってしまう場合に、管理者を削除できないかどうか" do
         user = User.all
         user.delete_all
         admin_user = FactoryBot.create(:admin)
         admin_login
         click_on "ユーザー一覧"
         click_on "削除"
-        expect(page).to have_content "アクセス権限がありません"
+        expect(page).to have_content "管理者を居なくなってしまうため、削除できません"
       end
   end
 end

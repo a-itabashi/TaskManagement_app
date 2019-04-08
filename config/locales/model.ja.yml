@@ -2,12 +2,17 @@ ja:
   activerecord:
     models:
       task: "タスク"
+      user: "ユーザー"
     attributes:
       task:
         title: "タスク名"
         content: "詳細"
         deadline: "終了期限"
         priority: "優先順位"
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        admin: 管理者権限
   enums:
     task:
       priority:

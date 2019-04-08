@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :user_params, only: %i[show edit update destroy]
 
   def index
-    @users = User.select(:id,:name, :email).page(params[:page]).per(10)
+    @users = User.select(:id,:name, :email, :admin).page(params[:page]).per(10)
   end
 
   def new
@@ -19,6 +19,10 @@ class Admin::UsersController < ApplicationController
       flash[:danger] = "ユーザ登録に失敗しました"
       render 'new'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   def destroy
