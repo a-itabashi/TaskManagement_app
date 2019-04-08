@@ -9,6 +9,7 @@
 - name:string
 - email:string
 - password_digest:string
+- admin:boolean
 
 ### tasksテーブル
 - user_id:references

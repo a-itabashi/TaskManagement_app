@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_021214) do
+ActiveRecord::Schema.define(version: 2019_04_08_102309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "label_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "labels", force: :cascade do |t|
+    t.string "content"
+    t.bigint "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["content"], name: "index_labels_on_content", unique: true
+    t.index ["task_id"], name: "index_labels_on_task_id"
+    t.index ["user_id"], name: "index_labels_on_user_id"
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
@@ -36,8 +54,11 @@ ActiveRecord::Schema.define(version: 2019_04_05_021214) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "labels", "tasks"
+  add_foreign_key "labels", "users"
   add_foreign_key "tasks", "users"
 end

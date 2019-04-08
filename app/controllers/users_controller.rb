@@ -19,13 +19,24 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @tasks = current_user.tasks
+    @tasks = @user.tasks
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = "ユーザー情報を更新しました"
+      redirect_to  user_path(@user)
+    else
+      flash[:danger] = "ユーザー情報の更新に失敗しました"
+      redirect_to  user_path(@user)
+    end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
   def not_allow_new
@@ -35,11 +46,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def not_allow_show 
-    @user = User.find(params[:id]) 
-    unless current_user.id == @user.id
-    flash[:info] = "アクセスできません"
-    redirect_to tasks_path
+  # def not_allow_show 
+  #   @user = User.find(params[:id]) 
+  #   unless current_user.id == @user.id
+  #   flash[:info] = "アクセスできません"
+  #   redirect_to tasks_path
+  #   end
+  # end
+
+  def not_allow_show
+    @user = User.find(params[:id])
+    unless current_user.try(:admin) || current_user.id == @user.id
+      flash[:info] = "アクセスできません"
+      redirect_to tasks_path
     end
   end
 end

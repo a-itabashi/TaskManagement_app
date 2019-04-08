@@ -24,11 +24,21 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.labels.build
   end
 
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
+      binding.pry
+      @task.favorites.create(label_id: @task.label_ids)
+
+      # arr = [:task][:label_ids]
+      # i = 0
+      # for i < (arr.lengh) do
+      #   @task.favorites.create(label_id: arr[i])
+      #   i += 1
+      # end
       flash[:success] = "タスクを登録しました"
       redirect_to tasks_path
     else
@@ -60,7 +70,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status, :priority)
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority, label_ids:[])
   end
 
   def set_params
@@ -74,9 +84,16 @@ class TasksController < ApplicationController
     end
   end
 
-  def not_show
-    unless @task.user_id === current_user.id
+  def admin_allow
+    unless current_user.try(:admin?)
       redirect_to tasks_path
     end
+  end
+
+  def not_show
+     unless current_user.try(:admin) || @task.user_id == current_user.id
+       flash[:info] = "アクセスできません"
+       redirect_to tasks_path
+     end
   end
 end
