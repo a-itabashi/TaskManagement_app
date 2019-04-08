@@ -24,7 +24,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.destroy
     flash[:info] = "ユーザー情報を削除しました"
-    redirect_to  admin_users_path
+    redirect_to tasks_path
   end
 
   private
