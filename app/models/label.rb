@@ -1,5 +1,4 @@
 class Label < ApplicationRecord
-  belongs_to :task,optional: true
 
   has_many :favorites, dependent: :destroy
 

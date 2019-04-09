@@ -22,14 +22,15 @@
     <th>優先順位</th>
     <td><%= @task.priority_i18n %></td>
   </tr>
-  <tr>
-    <th>ラベル</th>
-    <% @task.favorites_labels.each do |l| %>
-    <td><%= l.content %></td>
-    <% end %>
-  </tr>
   </table>
 </div>
+<div>
+  <p>ラベル名</p>
+  <% @task.favorites_labels.each do |l| %>
+      <td><%= l.content %></td>
+  <% end %>
+</div>
+
 <div>
   <%= link_to "戻る", tasks_path %>
 </div>

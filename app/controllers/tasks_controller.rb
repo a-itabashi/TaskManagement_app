@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_action :set_params, only: %i[show edit update destroy]
   before_action :user_logged_in?
   before_action :not_show, only: %i[show]
 
@@ -24,18 +23,29 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @task.labels.build
+    @task.favorites.build
+    # @favorite = @task.favorites
   end
 
   def create
-    @task = current_user.tasks.build(task_params)
-    if @task.save
+
+    # @task = current_user.tasks.build(task_params)
+    # @favorite = @task.favorites
+      @task = Task.new(task_params)
+      @task.user_id = current_user.id
+      # @favorite = @task.favorites
+      if @task.save
+      # @task = current_user.build(task_params)
+      
+
       i = 0
-      while i <  @task.label_ids.length  do
-        @task.favorites.create(label_id: @task.label_ids[i])
+      while i <  @task.favorites_labels.length  do
+        @favorite.create(label_id: @favorite.label_ids[i])
         i += 1
       end
+
       flash[:success] = "タスクを登録しました"
+      # binding.pry
       redirect_to tasks_path
     else
       render :new
@@ -43,36 +53,59 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
   end
 
   def edit
+    @task = Task.find(params[:id])
+    @favorite = @task.favorites
   end
 
+
   def update
-    @task = current_user.tasks.build(task_params)
-    if @task.update(task_params)
+    @task = Task.find(params[:id])
+    # @task = Task.new(task_params)
+    #   @task.user_id = current_user.id
+      if @task.update(task_params)
+      # @task = current_user.build(task_params)
       i = 0
-      while i <  @task.label_ids.length  do
-        @task.favorites.create(label_id: @task.label_ids[i])
+      while i <  @task.favorites_labels.length  do
+        @task.favorites.update(label_id: @task.label_ids[i])
         i += 1
       end
       flash[:success] = "タスクを編集しました"
       redirect_to tasks_path
     else
-      render :edit
+      render :new
     end
-
-
-
-    # if @task.update(task_params)
-    #   flash[:success] = "タスクを更新しました"
-    #   redirect_to tasks_path
-    # else
-    #   render 'edit'
-    # end
   end
 
+  # def update
+  #   @task = current_user.tasks.build(task_params)
+  #   if @task.update(task_params)
+  #     i = 0
+  #     while i <  @task.label_ids.length  do
+  #       @task.favorites.update(label_id: @task.label_ids[i])
+  #       i += 1
+  #     end
+  #     flash[:success] = "タスクを編集しました"
+  #     redirect_to tasks_path
+  #   else
+  #     render :edit
+  #   end
+
+
+
+  #   # if @task.update(task_params)
+  #   #   flash[:success] = "タスクを更新しました"
+  #   #   redirect_to tasks_path
+  #   # else
+  #   #   render 'edit'
+  #   # end
+  # end
+
   def destroy
+    @task = Task.find(params[:id])
     @task.destroy
     flash[:info] = "タスクを削除しました"
     redirect_to tasks_path
@@ -81,11 +114,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status, :priority, label_ids:[])
-  end
-
-  def set_params
-    @task = Task.find(params[:id])
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority, label_ids: [])
   end
 
   def user_logged_in?

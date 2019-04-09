@@ -10,9 +10,8 @@ class Task < ApplicationRecord
 
   has_many :favorites, dependent: :destroy
 
-  has_many :labels
   has_many :favorites_labels, through: :favorites, source: :label
 
-  accepts_nested_attributes_for :favorites, allow_destroy: true
+  # accepts_nested_attributes_for :favorites, allow_destroy: true
 
 end

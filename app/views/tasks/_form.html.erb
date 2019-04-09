@@ -32,11 +32,12 @@
     <%= f.select :priority, Task.priorities_i18n.keys.map {|k| [Task.priorities_i18n[k], k]} %>
   </div>
 
-    <%= f.label :content , "ラベル名" %>
+    <%#= f.label :content , "ラベル名" %>
       <% Label.all.each do |label| %>
       <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false},label[:id] %>
       <%= label.content %>
     <% end %> 
+
  
 
   <div class="form-group">
