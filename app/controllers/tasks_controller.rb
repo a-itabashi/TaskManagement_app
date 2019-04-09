@@ -5,10 +5,48 @@ class TasksController < ApplicationController
   def index
     @statues = ["未着手","着手中","完了"]
     @priorities = {高: 0, 中: 1, 低: 2}
-    
-    @q = Task.ransack(params[:q])
+ 
+    @q = current_user.tasks.ransack(params[:q])
+
     @tasks = @q.result.page(params[:page]).per(10)
     @tasks = @tasks.where(user_id: current_user.id)
+
+    @labels = Label.all
+
+    if params[:q] != nil 
+      if params[:q][:content_eq] != ""
+       favorite = Favorite.where(label_id: params[:q][:content_eq])
+       favorite_id = favorite.pluck(:task_id)
+       @tasks = Task.where(id: favorite_id).page(params[:page]).per(10)
+      end 
+    end
+
+
+    # @labels_arr_pre = Label.all
+    # @labels_empty = []
+    # if @labels_arr
+    #   i = 0
+    #   while i < @labels_arr.length
+    #     @labels_arr << @labels_arr[i].content
+    #     i += 1
+    #   end
+    # end
+
+    # if params[:content_eq] == "板橋のラベル"
+    #   @content = params[:content_eq]
+    #   @label_id = Label.find_by(content: @content)
+    #   @favorite_tasks = Favorite.where(label_id: @label_id)
+      
+    #   @task_ids = []
+    #     i = 0
+    #     while i < @favorite_tasks.length
+    #       @task_ids << @favorite_tasks[i].task_id
+    #       i += 1
+    #     end
+
+    #   @pre_tasks = Task.where(user_id: current_user.id).where(id: @task_ids)
+    #   @tasks = @pre_tasks.page(params[:page]).per(10)
+    # end
 
     if params[:sort_expired]
       @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
@@ -30,22 +68,22 @@ class TasksController < ApplicationController
   def create
 
     # @task = current_user.tasks.build(task_params)
-    # @favorite = @task.favorites
+
       @task = Task.new(task_params)
       @task.user_id = current_user.id
-      # @favorite = @task.favorites
+      @labels = params[:task][:label_ids]
+      @favorite = @task.favorites
       if @task.save
-      # @task = current_user.build(task_params)
-      
 
-      i = 0
-      while i <  @task.favorites_labels.length  do
-        @favorite.create(label_id: @favorite.label_ids[i])
-        i += 1
+      if @labels
+        i = 0
+        while i < @labels.length  do
+          @favorite.create(label_id: @labels[i])
+          i += 1
+        end
       end
 
       flash[:success] = "タスクを登録しました"
-      # binding.pry
       redirect_to tasks_path
     else
       render :new
@@ -58,7 +96,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-    @favorite = @task.favorites
+    @favorite = @task.favorites_labels
   end
 
 
@@ -66,13 +104,17 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     # @task = Task.new(task_params)
     #   @task.user_id = current_user.id
+      @labels = params[:task][:label_ids]
+      @favorite = @task.favorites
       if @task.update(task_params)
-      # @task = current_user.build(task_params)
-      i = 0
-      while i <  @task.favorites_labels.length  do
-        @task.favorites.update(label_id: @task.label_ids[i])
-        i += 1
-      end
+      # # @task = current_user.build(task_params)
+      # if @labels
+      #   i = 0
+      #   while i < @labels.length  do
+      #     @favorite.update(label_id: @labels[i])
+      #     i += 1
+      #   end
+      # end
       flash[:success] = "タスクを編集しました"
       redirect_to tasks_path
     else
@@ -114,7 +156,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status, :priority, label_ids: [])
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority)
   end
 
   def user_logged_in?

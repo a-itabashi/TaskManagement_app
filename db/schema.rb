@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_09_023744) do
+ActiveRecord::Schema.define(version: 2019_04_09_084713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "task_id"
-    t.integer "label_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "task_id"
+    t.bigint "label_id"
+    t.index ["task_id", "label_id"], name: "index_favorites_on_task_id_and_label_id", unique: true
   end
 
   create_table "labels", force: :cascade do |t|

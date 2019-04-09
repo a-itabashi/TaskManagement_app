@@ -6,8 +6,14 @@
     <%= f.select :status_cont, @statues, include_blank: true %>
     <%= f.label :priority_eq, "優先順位" %>
     <%= f.select :priority_eq, @priorities, include_blank: true %>
+
+
+    <%= f.label :content_eq, "ラベル名" %>
+    <%= f.select :content_eq, @labels.map{|t| [t.content, t.id]}, include_blank: true %> 
+
     <%= f.submit "検索" %>
   <% end %>
+
 
 <div class="x-scroll">
 <table class="table">
@@ -18,6 +24,7 @@
       <th>終了期限</th>
       <th>状態</th>
       <th>優先順位</th>
+      <th class="text-center">ラベル</th>
       <th></th>
       <th></th>
       <th></th>
@@ -31,6 +38,13 @@
         <td><%= task.deadline.strftime("%Y年%m月%d日")%></td>
         <td><%= task.status %></td>
         <td class="text-center"><%= task.priority_i18n %>
+        <td>
+          <% task.favorites_labels.each do |l| %>
+          <ul>
+            <li><%= l.content %></li>
+          </ul>
+           <% end %>
+        </td>
         <td class="task_show"><%= link_to "詳細", task %></td>
         <td><%= link_to "編集", edit_task_path(task) %></td>
         <td><%= link_to "削除", task_path(task), method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>

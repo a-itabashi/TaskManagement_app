@@ -24,10 +24,12 @@
   </tr>
   </table>
 </div>
-<div>
-  <p>ラベル名</p>
+<div class="task_label">
+  <p>選択したラベル名一覧</p>
   <% @task.favorites_labels.each do |l| %>
-      <td><%= l.content %></td>
+    <ul>
+      <li><%= l.content %></li>
+    </ul>
   <% end %>
 </div>
 

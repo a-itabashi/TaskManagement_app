@@ -38,6 +38,13 @@
       <%= label.content %>
     <% end %> 
 
+  <% if current_user.labels.present? %>
+  <p>編集前に設定していたラベル　※再度設定し直してください</p>
+    <% labels = current_user.labels %>
+    <% labels.each do |l| %>
+      <%= l.content %>
+    <% end %>
+  <% end %>
  
 
   <div class="form-group">
