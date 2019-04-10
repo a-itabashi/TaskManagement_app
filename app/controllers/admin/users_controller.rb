@@ -50,9 +50,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def delete_admin
-    if self.admin.count <= 1
+    if User.where(admin: true).count <= 1
        flash[:danger] = "管理者を居なくなってしまうため、削除できません"
-       redirect_to admin_user_path
+       redirect_to tasks_path
     end
   end
 end
