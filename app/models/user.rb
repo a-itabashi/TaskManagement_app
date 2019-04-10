@@ -11,12 +11,12 @@ class User < ApplicationRecord
 
   before_destroy :delete_admin
 
-  private
+  # private
 
-  def delete_admin
-    if self.admin.count <= 1
-       flash[:danger] = "管理者を居なくなってしまうため、削除できません"
-       redirect_to root_path
-    end
-  end
+  # def delete_admin
+  #   if User.where(admin: true).count <= 1
+  #      flash[:danger] = "管理者を居なくなってしまうため、削除できません"
+  #      redirect_to tasks_path
+  #   end
+  # end
 end

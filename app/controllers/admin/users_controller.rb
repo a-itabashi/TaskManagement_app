@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :user_admin?
   before_action :user_params, only: %i[show edit update destroy]
+  before_action :delete_admin, only: %i[destroy]
 
   def index
     @users = User.select(:id,:name, :email, :admin).page(params[:page]).per(10)
@@ -46,5 +47,12 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     @user = User.find(params[:id])
+  end
+
+  def delete_admin
+    if User.where(admin: true).count <= 1
+       flash[:danger] = "管理者を居なくなってしまうため、削除できません"
+       redirect_to tasks_path
+    end
   end
 end
