@@ -49,6 +49,7 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+
   def delete_admin
     if User.where(admin: true).count <= 1
        flash[:danger] = "管理者を居なくなってしまうため、削除できません"
