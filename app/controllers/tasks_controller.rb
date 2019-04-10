@@ -17,7 +17,8 @@ class TasksController < ApplicationController
       if params[:q][:content_eq] != ""
        favorite = Favorite.where(label_id: params[:q][:content_eq])
        favorite_id = favorite.pluck(:task_id)
-       @tasks = Task.where(id: favorite_id).page(params[:page]).per(10)
+       @tasks_all = Task.where(id: favorite_id).page(params[:page]).per(10)
+       @tasks = @tasks_all.where(user_id: current_user.id)
       end 
     end
 
@@ -156,7 +157,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status, :priority)
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority, labels_ids:[])
   end
 
   def user_logged_in?
@@ -173,6 +174,7 @@ class TasksController < ApplicationController
   end
 
   def not_show
+    @task = Task.find(params[:id])
      unless current_user.try(:admin) || @task.user_id == current_user.id
        flash[:info] = "アクセスできません"
        redirect_to tasks_path
