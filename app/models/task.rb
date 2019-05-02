@@ -4,6 +4,8 @@ class Task < ApplicationRecord
   validates :deadline, presence: true
   validates :priority, presence: true
 
+
+  # enum priority: {高: 0, 中: 1, 低: 2}でも良い
   enum priority: {high: 0, middle: 1, low: 2}
 
   belongs_to :user
