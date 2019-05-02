@@ -73,11 +73,13 @@
       <tr>
         <th>タスク名前</th>
         <th>予定していた終了期限</th>
+        <th>状態</th>
       </tr>
     <% @announce_deadline.each do |list| %>
       <tr>
         <td><%= list.title %></td>
         <td><%= list.deadline.strftime("%Y年%m月%d日")%></td>
+        <td><%= list.status %></td>
       </tr>
   <% end %>
   </table>
