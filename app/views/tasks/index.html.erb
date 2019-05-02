@@ -67,5 +67,21 @@
   <%= link_to "優先順位でソートする(高い順に)", tasks_path(sort_priority_expired: "true") %>
 </div>
 
+<div class="index_anounce_deadline">
+<h3>終了期限間近 or 終了したタスク一覧(完了したタスク以外を表示してます)</h3>
+  <table class="table">
+      <tr>
+        <th>タスク名前</th>
+        <th>予定していた終了期限</th>
+      </tr>
+    <% @announce_deadline.each do |list| %>
+      <tr>
+        <td><%= list.title %></td>
+        <td><%= list.deadline.strftime("%Y年%m月%d日")%></td>
+      </tr>
+  <% end %>
+  </table>
+</div>
+
 
 

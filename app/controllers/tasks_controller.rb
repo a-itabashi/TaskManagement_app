@@ -60,8 +60,12 @@ class TasksController < ApplicationController
       @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
       @tasks = @tasks.where(user_id: current_user.id)
     end
-  end
 
+  # 終了間近・期限過ぎてる・完了以外のタスク一覧
+  @announce_deadline = Task.where("deadline <= ?", Time.zone.today+7).where("deadline < ?", Time.zone.today).where("status != ?","完了")
+
+  end
+  
   def new
     @task = Task.new
     @task.favorites.build
