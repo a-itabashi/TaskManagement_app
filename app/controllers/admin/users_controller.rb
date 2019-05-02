@@ -32,6 +32,7 @@ class Admin::UsersController < ApplicationController
     redirect_to tasks_path
   end
 
+
   private
 
   def user_admin?
