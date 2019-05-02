@@ -32,13 +32,20 @@
     <%= f.select :priority, Task.priorities_i18n.keys.map {|k| [Task.priorities_i18n[k], k]} %>
   </div>
 
-  <%= f.fields_for :labels do |l| %>
-    <%= l.label :type , "ラベル名" %>
-    <% Label.all.each do |label| %>
-    <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false},label[:id] %>
-    <%= label.content %>
+    <%#= f.label :content , "ラベル名" %>
+      <% Label.all.each do |label| %>
+      <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false},label[:id] %>
+      <%= label.content %>
     <% end %> 
+
+  <% if current_user.labels.present? %>
+  <p>編集前に設定していたラベル　※再度設定し直してください</p>
+    <% labels = current_user.labels %>
+    <% labels.each do |l| %>
+      <%= l.content %>
+    <% end %>
   <% end %>
+ 
 
   <div class="form-group">
     <%= f.submit "作成する" %>

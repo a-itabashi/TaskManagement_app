@@ -46,14 +46,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # def not_allow_show 
-  #   @user = User.find(params[:id]) 
-  #   unless current_user.id == @user.id
-  #   flash[:info] = "アクセスできません"
-  #   redirect_to tasks_path
-  #   end
-  # end
-
   def not_allow_show
     @user = User.find(params[:id])
     unless current_user.try(:admin) || current_user.id == @user.id

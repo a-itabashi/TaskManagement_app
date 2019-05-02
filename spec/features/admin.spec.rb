@@ -62,7 +62,7 @@ RSpec.feature "管理ユーザー機能", type: :feature do
         expect(page).to have_content "admin@gmail.com"
       end
 
-      scenario "ユーザ-詳細を更新できるかどうか" do
+      scenario "管理者のみユーザ-詳細を更新できるかどうか" do
         user = User.all
         user.delete_all
         admin_user = FactoryBot.create(:admin)

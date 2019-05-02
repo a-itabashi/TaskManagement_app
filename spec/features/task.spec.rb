@@ -1,11 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
-  background do
-    FactoryBot.create(:user_1)
-    FactoryBot.create(:user_2)
-    visit root_path
-    # user_1
+  def user_1_login_to_out
     click_on "ログイン"
     fill_in "メールアドレス", with: "test@gmail.com"
     fill_in "パスワード", with: "password"
@@ -25,8 +21,9 @@ RSpec.feature "タスク管理機能", type: :feature do
     select "低", from: "task_priority"
     click_on "作成する"
     click_on "ログアウト"
+  end
 
-    # user_2
+  def user_2_login_to_out
     click_on "ログイン"
     fill_in "メールアドレス", with: "product@gmail.com"
     fill_in "パスワード", with: "password"
@@ -45,6 +42,29 @@ RSpec.feature "タスク管理機能", type: :feature do
     select "完了", from: "task_status"
     select "低", from: "task_priority"
     click_on "作成する"
+
+   def create_labels
+      FactoryBot.create(:admin)
+      visit root_path
+      click_on "ログイン"
+      fill_in "メールアドレス", with: "admin@gmail.com"
+      fill_in "パスワード", with: "password"
+      click_on "ログインする"
+      click_on "ラベル新規作成"
+      fill_in "ラベル名", with: "ラベルA"
+      click_on "作成する"
+      click_on "ラベルを作成する"
+      fill_in "ラベル名", with: "ラベルB"
+      click_on "作成する"
+    end
+  end
+
+  background do
+    FactoryBot.create(:user_1)
+    FactoryBot.create(:user_2)
+    visit root_path
+    user_1_login_to_out
+    user_2_login_to_out
   end
 
   scenario "タスク一覧のテスト" do
@@ -66,7 +86,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     select "高", from: "task_priority"
     click_on "作成する"
     click_on "詳細"
-    expect(page).to have_content "タイトルA" && "テストの内容A" && "2020年04月01日"
+    expect(page).to have_content "タイトルA" && "テストの内容A"
   end
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do
@@ -141,4 +161,65 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(page).not_to have_content "タイトルA"
     expect(page).not_to have_content "タイトルB"
   end
+
+  scenario "タスクに複数のラベルをつけられるかどうか" do
+  
+  end
+
+  context "ラベルを生成できる権限について" do
+    scenario "管理者は生成できるかどうか" do
+      create_labels
+    end 
+    scenario "管理者は生成できないかどうか" do
+      visit root_path
+      click_on "ログイン"
+      fill_in "メールアドレス", with: "test@gmail.com"
+      fill_in "パスワード", with: "password"
+      click_on "ログインする"
+      visit new_label_path
+      expect(page).to have_content "権限がありません"
+    end
+  end
+
+  scenario "詳細画面でタスクに紐づくラベル一覧が見れるかどうか" do
+      create_labels
+      visit root_path
+      click_on "ログイン"
+      fill_in "メールアドレス", with: "test@gmail.com"
+      fill_in "パスワード", with: "password"
+      click_on "ログインする"
+      find(".new_task").click
+      fill_in "タスク名", with: "タスク名A"
+      fill_in "詳細", with: "詳細A"
+      fill_in "終了期限", with: "2020/04/10"
+      select "完了", from: "task_status"
+      select "低", from: "task_priority"
+      check "task_label_ids_1"
+      check "task_label_ids_2"
+      click_on "作成する"
+      expect(page).to have_content "ラベルA" && "ラベルB"
+  end
+
+  scenario "ラベル検索で、自分のタスクのみソートできるかどうか" do
+      create_labels
+      visit root_path
+      user_1_login_to_out
+      click_on "ログイン"
+      fill_in "メールアドレス", with: "test@gmail.com"
+      fill_in "パスワード", with: "password"
+      click_on "ログインする"
+      find(".new_task").click
+      fill_in "タスク名", with: "タスク名A"
+      fill_in "詳細", with: "詳細A"
+      fill_in "終了期限", with: "2020/04/10"
+      select "完了", from: "task_status"
+      select "低", from: "task_priority"
+      check "task_label_ids_3"
+      check "task_label_ids_4"
+      click_on "作成する"
+      select "ラベルA", from: "q_content_eq"
+      click_on "検索"
+      expect(page).not_to have_content "タイトルA" && "タイトルB"
+ end
+
 end

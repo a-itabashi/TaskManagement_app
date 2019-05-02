@@ -8,15 +8,4 @@ class User < ApplicationRecord
   has_secure_password
   has_many :tasks, dependent: :destroy
   has_many :labels
-
-  before_destroy :delete_admin
-
-  private
-
-  def delete_admin
-    if self.admin.count <= 1
-       flash[:danger] = "管理者を居なくなってしまうため、削除できません"
-       redirect_to admin_user_path
-    end
-  end
 end

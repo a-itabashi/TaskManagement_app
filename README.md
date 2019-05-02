@@ -1,4 +1,5 @@
 # TaskManagement_appの概要  
+
 ## Model
 ### *Userモデル*
 #### *Taskモデル*
@@ -21,7 +22,7 @@
 
 ### labelテーブル
 - task_id:references
-- type:string
+- content:string
 
 # Herokuへのデプロイ方法
 1. github上のissueについて、PRをあげる。

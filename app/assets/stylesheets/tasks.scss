@@ -16,3 +16,18 @@ background: #d6d6d6;
 .x-scroll td, .x-scroll th{
 white-space: nowrap;
 }
+
+
+.task_label{
+  margin:30px 0;
+   padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #474747;
+    background: whitesmoke;/*背景色*/
+    border-left: double 7px #4ec4d3;/*左線*/
+    border-right: double 7px #4ec4d3;/*右線*/
+}
+
+.select_label{
+  margin:30px 0;
+}
