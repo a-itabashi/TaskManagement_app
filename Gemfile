@@ -31,6 +31,10 @@ group :development, :test do
   gem "database_cleaner"
   gem "launchy"
   gem 'selenium-webdriver'
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'pry-nav'
 end
 
 group :development do
@@ -38,6 +42,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rails-erd'
   gem 'rails-erd'
 end
 

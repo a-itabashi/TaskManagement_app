@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :labels
 
+
   before_destroy :delete_admin
 
   # private

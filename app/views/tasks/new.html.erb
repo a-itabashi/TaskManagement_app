@@ -36,6 +36,7 @@
 
     <%#= f.label :content , "ラベル名" %>
       <% Label.all.each do |label| %>
+    <!-- checked: label[:checked], disabled: label[:disabled]の記述でチェックがついたときに（label[:id]）に入っている値を送信できるようになります-->
       <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false},label[:id] %>
       <%= label.content %>
     <% end %> 

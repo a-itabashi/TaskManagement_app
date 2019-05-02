@@ -6,16 +6,18 @@ class TasksController < ApplicationController
     @statues = ["未着手","着手中","完了"]
     @priorities = {高: 0, 中: 1, 低: 2}
  
+    # パラメーター値を元に、tssksを成形
     @q = current_user.tasks.ransack(params[:q])
 
+    # resultメソッドで、@qのインスタンスを成形
     @tasks = @q.result.page(params[:page]).per(10)
-    @tasks = @tasks.where(user_id: current_user.id)
-
+    # @tasks = @tasks.where(user_id: current_user.id)
     @labels = Label.all
 
     if params[:q] != nil 
       if params[:q][:content_eq] != ""
        favorite = Favorite.where(label_id: params[:q][:content_eq])
+       # 特定のラベルに紐づくtask_idの配列
        favorite_id = favorite.pluck(:task_id)
        @tasks_all = Task.where(id: favorite_id).page(params[:page]).per(10)
        @tasks = @tasks_all.where(user_id: current_user.id)
@@ -49,7 +51,7 @@ class TasksController < ApplicationController
     #   @tasks = @pre_tasks.page(params[:page]).per(10)
     # end
 
-    if params[:sort_expired]
+    if params[:sort_expired] == "true"
       @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
       @tasks = @tasks.where(user_id: current_user.id)
     end
