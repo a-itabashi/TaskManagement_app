@@ -12,6 +12,7 @@ class TasksController < ApplicationController
     # resultメソッドで、テーブルからレコードを持ってくる
     @tasks = @q.result.page(params[:page]).per(10)
     # @tasks = @tasks.where(user_id: current_user.id)
+    
     @labels = Label.all
 
     if params[:q] != nil 
