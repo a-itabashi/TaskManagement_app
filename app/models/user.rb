@@ -9,6 +9,13 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :labels
 
+  # オーナを抽出
+  has_many :groups, foreign_key: :owner_id
+  has_many :assigns, dependent: :destroy
+  
+  # 入っているグループ全部を紐付ける
+  has_many :groups, through: :assigns
+
 
   before_destroy :delete_admin
 

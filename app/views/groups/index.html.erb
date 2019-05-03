@@ -1,0 +1,40 @@
+<h1>グループ一覧</h1>
+
+<div class="x-scroll">
+<table class="table">
+  <thead>
+    <tr>
+      <th>グループ名</th>
+      <th>グループの説明</th>
+      <th>詳細</th>
+      <th>編集</th> 
+      <th>削除</th> 
+      <th>参加</th>
+      <th>脱退</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.content %></td>
+
+        <td><%= link_to "詳細", group_path(group) %>
+        <td><%= link_to "編集", edit_group_path(group) %> <!-- グループのownerのみ -->
+        <td><%= link_to "削除", group_path(group), 
+        method: :delete, data: {confirm: "削除して宜しいですか？"} %></td> <!-- グループのownerのみ -->
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+&nbsp
+<div>
+  
+</div>
+  <%= link_to "グループを作成する", new_group_path %>
+<div>
+  <%= link_to "戻る", tasks_path %>
+</div>

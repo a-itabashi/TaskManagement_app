@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_09_084713) do
+ActiveRecord::Schema.define(version: 2019_05_03_062037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assigns", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_assigns_on_group_id"
+    t.index ["user_id"], name: "index_assigns_on_user_id"
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -21,6 +30,15 @@ ActiveRecord::Schema.define(version: 2019_04_09_084713) do
     t.bigint "task_id"
     t.bigint "label_id"
     t.index ["task_id", "label_id"], name: "index_favorites_on_task_id_and_label_id", unique: true
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "content", null: false
+    t.index ["owner_id"], name: "index_groups_on_owner_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -56,6 +74,8 @@ ActiveRecord::Schema.define(version: 2019_04_09_084713) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "assigns", "groups"
+  add_foreign_key "assigns", "users"
   add_foreign_key "labels", "users"
   add_foreign_key "tasks", "users"
 end
