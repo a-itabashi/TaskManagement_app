@@ -16,7 +16,6 @@ class User < ApplicationRecord
   # 入っているグループ全部を紐付ける
   has_many :groups, through: :assigns
 
-
   before_destroy :delete_admin
 
   # private

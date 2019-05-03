@@ -6,11 +6,11 @@
     <tr>
       <th>グループ名</th>
       <th>グループの説明</th>
-      <th>詳細</th>
-      <th>編集</th> 
-      <th>削除</th> 
-      <th>参加</th>
-      <th>脱退</th>
+      <th></th>
+      <th></th> 
+      <th></th> 
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -19,22 +19,33 @@
         <td><%= group.name %></td>
         <td><%= group.content %></td>
 
-        <td><%= link_to "詳細", group_path(group) %>
-        <td><%= link_to "編集", edit_group_path(group) %> <!-- グループのownerのみ -->
-        <td><%= link_to "削除", group_path(group), 
-        method: :delete, data: {confirm: "削除して宜しいですか？"} %></td> <!-- グループのownerのみ -->
-        <td></td>
-        <td></td>
+        <% if group.assigns.pluck(:user_id).include?current_user.id %>
+          <td><%= link_to "詳細", group_path(group) %>
+        <% end %>
+        <% if current_user.id == group.owner_id %>
+          <td><%= link_to "編集", edit_group_path(group) %> <!-- グループのownerのみ -->
+          <td><%= link_to "削除", group_path(group), 
+          method: :delete, data: {confirm: "削除して宜しいですか？"} %></td> <!-- グループのownerのみ -->
+        <% end %>
+        <% if !group.assigns.pluck(:user_id).include?current_user.id %>
+          <td><%= link_to "参加", assigns_path(group_id: group.id), method: :post %></td>
+        <% end %>
+
+        <% if group.assigns.pluck(:user_id).include?current_user.id %>
+          <% unless group.assigns.where(user_id: current_user.id).find_by(leader: true) %>
+            <td><%= link_to "脱退", assign_path(id: current_user.assigns.pluck(:id)),method: :delete, data: {confirm: "退会してよろしいですか？"} %></td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
-&nbsp
+  &nbsp
 <div>
-  
-</div>
   <%= link_to "グループを作成する", new_group_path %>
+</div>
+  &nbsp
 <div>
   <%= link_to "戻る", tasks_path %>
 </div>
