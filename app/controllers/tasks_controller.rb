@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     # パラメーター値を元に、tssksを成形
     @q = current_user.tasks.ransack(params[:q])
 
-    # resultメソッドで、@qのインスタンスを成形
+    # resultメソッドで、テーブルからレコードを持ってくる
     @tasks = @q.result.page(params[:page]).per(10)
     # @tasks = @tasks.where(user_id: current_user.id)
     @labels = Label.all

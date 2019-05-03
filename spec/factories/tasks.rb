@@ -18,5 +18,7 @@ FactoryBot.define do
     deadline { '2019-04-01' }
     status {'完了'}
     priority {3}
+
+    # user { User.first || create(:user)}
   end
 end
