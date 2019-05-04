@@ -38,10 +38,11 @@ RSpec.feature "タスク管理機能", type: :feature do
     find('.new_task').click
     fill_in "タスク名", with: "タイトルD"
     fill_in "詳細", with: "テストの内容D"
-    fill_in "終了期限", with: "2020/04/10"
+    fill_in "終了期限", with: "2019/05/10"
     select "完了", from: "task_status"
     select "低", from: "task_priority"
     click_on "作成する"
+  end
 
    def create_labels
       FactoryBot.create(:admin)
@@ -56,12 +57,12 @@ RSpec.feature "タスク管理機能", type: :feature do
       click_on "ラベルを作成する"
       fill_in "ラベル名", with: "ラベルB"
       click_on "作成する"
-    end
-  end
+   end
 
   background do
     FactoryBot.create(:user_1)
     FactoryBot.create(:user_2)
+    FactoryBot.create(:second_task)
     visit root_path
     user_1_login_to_out
     user_2_login_to_out
@@ -157,11 +158,6 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(task_titles[1]).to have_content "タイトルD"
   end
 
-  scenario "タスク一覧に自分が作成したタスクのみ表示されているか" do
-    expect(page).not_to have_content "タイトルA"
-    expect(page).not_to have_content "タイトルB"
-  end
-
   scenario "タスクに複数のラベルをつけられるかどうか" do
   
   end
@@ -220,6 +216,14 @@ RSpec.feature "タスク管理機能", type: :feature do
       select "ラベルA", from: "q_content_eq"
       click_on "検索"
       expect(page).not_to have_content "タイトルA" && "タイトルB"
+ end
+
+ scenario "ログイン後のタスク一覧ページに、終了７日前・期限の過ぎたタスク(状態が完了のものは除く)を表示したい" do
+      within("#deadline_rspec") do
+        expect(page).not_to have_content "完了"
+        expect(page).to have_content "2019年04月01日"
+        expect(page).to have_content "2019年05月10日"
+      end
  end
 
 end

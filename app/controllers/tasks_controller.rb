@@ -63,7 +63,7 @@ class TasksController < ApplicationController
     end
 
   # 終了間近・期限過ぎてる・完了以外のタスク一覧
-  @announce_deadline = Task.where("deadline <= ?", Time.zone.today+7).where("deadline < ?", Time.zone.today).where("status != ?","完了")
+  @announce_deadline = Task.where("deadline <= ?", (Time.zone.today+7.day)).where("status != ?", "完了")
 
   end
   
