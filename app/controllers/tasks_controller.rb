@@ -9,9 +9,10 @@ class TasksController < ApplicationController
     # パラメーター値を元に、tssksを成形
     @q = current_user.tasks.ransack(params[:q])
 
-    # resultメソッドで、@qのインスタンスを成形
+    # resultメソッドで、テーブルからレコードを持ってくる
     @tasks = @q.result.page(params[:page]).per(10)
     # @tasks = @tasks.where(user_id: current_user.id)
+    
     @labels = Label.all
 
     if params[:q] != nil 
@@ -60,8 +61,12 @@ class TasksController < ApplicationController
       @tasks = Task.page(params[:page]).per(10).order(priority: :asc)
       @tasks = @tasks.where(user_id: current_user.id)
     end
-  end
 
+  # 終了間近・期限過ぎてる・完了以外のタスク一覧
+  @announce_deadline = Task.where("deadline <= ?", (Time.zone.today+7.day)).where("status != ?", "完了")
+
+  end
+  
   def new
     @task = Task.new
     @task.favorites.build

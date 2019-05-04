@@ -32,6 +32,7 @@ class Admin::UsersController < ApplicationController
     redirect_to tasks_path
   end
 
+
   private
 
   def user_admin?
@@ -48,7 +49,6 @@ class Admin::UsersController < ApplicationController
   def user_params
     @user = User.find(params[:id])
   end
-
 
   def delete_admin
     if User.where(admin: true).count <= 1
