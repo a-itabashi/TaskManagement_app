@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :user_logged_in?
-  before_action :not_show, only: %i[show]
+  # before_action :not_show, only: %i[show]
+  before_action :admin_allow, only: %i[edit update]
 
   def index
     @statues = ["未着手","着手中","完了"]
@@ -100,6 +101,15 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+
+    # 既読・未読の判定
+    if params[:r]
+      unless current_user.reads.find_by(task_id: params[:r])
+        current_user.reads.create(task_id: params[:r])
+      end
+    end
+
+
   end
 
   def edit

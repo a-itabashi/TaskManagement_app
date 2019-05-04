@@ -18,6 +18,8 @@ class User < ApplicationRecord
 
   before_destroy :delete_admin
 
+  has_many :reads, dependent: :destroy
+
   # private
 
   # def delete_admin

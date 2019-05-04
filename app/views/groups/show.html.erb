@@ -28,6 +28,7 @@
       <th>優先順位</th>
       <th class="text-center">ラベル</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -46,7 +47,8 @@
           </ul>
            <% end %>
         </td>
-        <td class="task_show"><%= link_to "詳細", task %></td>
+        <td class="task_show"><%= link_to "詳細", task_path(task, r: task.id) %></td>
+        <td><%= task.reads.find_by(user_id: current_user.id) ? '既読' : '未読' %></td>
       </tr>
     <% end %>
   </tbody>

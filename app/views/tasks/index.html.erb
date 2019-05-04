@@ -28,6 +28,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -45,7 +46,8 @@
           </ul>
            <% end %>
         </td>
-        <td class="task_show"><%= link_to "詳細", task %></td>
+        <td><%= task.reads.find_by(user_id: current_user.id) ? '既読' : '未読' %></td>
+        <td class="task_show"><%= link_to "詳細", task_path(task, r: task.id) %></td>
         <td><%= link_to "編集", edit_task_path(task) %></td>
         <td><%= link_to "削除", task_path(task), method: :delete, data: {confirm: "削除して宜しいですか？"} %></td>
       </tr>

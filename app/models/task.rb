@@ -14,4 +14,6 @@ class Task < ApplicationRecord
 
   has_many :favorites_labels, through: :favorites, source: :label
 
+  has_many :reads, dependent: :destroy
+
 end

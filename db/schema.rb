@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_04_093542) do
+ActiveRecord::Schema.define(version: 2019_05_04_100807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(version: 2019_05_04_093542) do
     t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
+  create_table "reads", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "task_id"
+    t.boolean "flag", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_reads_on_task_id"
+    t.index ["user_id", "task_id"], name: "index_reads_on_user_id_and_task_id", unique: true
+    t.index ["user_id"], name: "index_reads_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
@@ -60,7 +71,6 @@ ActiveRecord::Schema.define(version: 2019_05_04_093542) do
     t.string "status", default: "未着手", null: false
     t.integer "priority", default: 2, null: false
     t.bigint "user_id"
-    t.boolean "read", default: false, null: false
     t.index ["priority"], name: "index_tasks_on_priority"
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["title"], name: "index_tasks_on_title"
@@ -80,5 +90,7 @@ ActiveRecord::Schema.define(version: 2019_05_04_093542) do
   add_foreign_key "assigns", "groups"
   add_foreign_key "assigns", "users"
   add_foreign_key "labels", "users"
+  add_foreign_key "reads", "tasks"
+  add_foreign_key "reads", "users"
   add_foreign_key "tasks", "users"
 end
