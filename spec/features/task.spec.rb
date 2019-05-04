@@ -56,7 +56,7 @@ RSpec.feature "タスク管理機能", type: :feature do
       click_on "作成する"
       click_on "ラベルを作成する"
       fill_in "ラベル名", with: "ラベルB"
-      click_on "作成する"
+      click_on "作成する" 
    end
 
   background do

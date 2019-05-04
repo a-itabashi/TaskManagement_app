@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: %i[new create destroy]
   resources :labels
+  resources :groups
+  resources :assigns, only: %i[create destroy]
 end

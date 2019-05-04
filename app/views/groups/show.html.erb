@@ -1,0 +1,58 @@
+<h1>グループの詳細</h1>
+
+<div class="x-scroll">
+  <table class="table table-bordered text-center">
+    <tr>
+      <th>グループ名</th>
+      <td><%= @group.name %></td>
+    <tr>
+    <tr>
+      <th>詳細</th>
+      <td><%= @group.content %></td>
+    </tr>
+  </table>
+</div>
+&nbsp
+&nbsp
+<h1><%= @group.name%>のユーザーが持つタスク一覧</h1>
+
+<div class="x-scroll">
+  <table class="table">
+  <thead>
+    <tr>
+      <th>タスク名</th>
+      <th>ユーザー名</th>
+      <th>詳細</th>
+      <th>終了期限</th>
+      <th>状態</th>
+      <th>優先順位</th>
+      <th class="text-center">ラベル</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td class="task_title"><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.user.name %></td>
+        <td><%= task.deadline.strftime("%Y年%m月%d日")%></td>
+        <td><%= task.status %></td>
+        <td class="text-center"><%= task.priority_i18n %>
+        <td>
+          <% task.favorites_labels.each do |l| %>
+          <ul>
+            <li><%= l.content %></li>
+          </ul>
+           <% end %>
+        </td>
+        <td class="task_show"><%= link_to "詳細", task %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  </table>
+</div>
+<div>
+  <%= link_to "戻る", groups_path %>
+</div>
