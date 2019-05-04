@@ -59,4 +59,18 @@ class GroupsController < ApplicationController
   def find_params
     @group = Group.find(params[:id])
   end
+
+  def update_or_delete
+    unless current_user.id == @group.owner_id
+      flash[:info] = "権限がありません"
+      redirect_to groups_path
+    end
+  end
+
+  def allow_show
+    unless current_user.id == @group.assigns.where(user_id: 1).pluck(:user_id)[0]
+      flash[:info] = "権限がありません"
+      redirect_to groups_path
+    end
+  end
 end
