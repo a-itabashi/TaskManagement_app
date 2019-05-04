@@ -42,6 +42,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     select "完了", from: "task_status"
     select "低", from: "task_priority"
     click_on "作成する"
+  end
 
    def create_labels
       FactoryBot.create(:admin)
@@ -55,9 +56,8 @@ RSpec.feature "タスク管理機能", type: :feature do
       click_on "作成する"
       click_on "ラベルを作成する"
       fill_in "ラベル名", with: "ラベルB"
-      click_on "作成する"
-    end
-  end
+      click_on "作成する" 
+   end
 
   background do
     FactoryBot.create(:user_1)

@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
   end
 
   def allow_show
-    unless current_user.id == @group.assigns.where(user_id: 1).pluck(:user_id)[0]
+    unless current_user.id == @group.assigns.where(user_id: current_user.id).pluck(:user_id)[0]
       flash[:info] = "権限がありません"
       redirect_to groups_path
     end
