@@ -16,8 +16,9 @@ FactoryBot.define do
   factory :second_task, class: Task do
     title { 'Factoryで作ったデフォルトのタイトル２' }
     content { 'Factoryで作ったデフォルトのコンテント２' }
-    deadline { '2019-04-01' }
-    status {'完了'}
-    priority {3}
+    deadline { '2019-05-10' }
+    status {'着手中'}
+    priority {1}
+    user { User.first || create(:user_1)}
   end
 end
