@@ -75,7 +75,7 @@
 
   <% tasks.each do |task| %>
     <div>
-      <p>期限タスク:<%= link_to task.title, task %></p>
+      <p id="task_calender<%= task.id%>">期限タスク:<%= link_to task.title, task %></p>
     </div>
   <% end %>
 <% end %>
