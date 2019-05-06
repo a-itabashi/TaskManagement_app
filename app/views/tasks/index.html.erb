@@ -68,6 +68,8 @@
 <div>
   <%= link_to "優先順位でソートする(高い順に)", tasks_path(sort_priority_expired: "true") %>
 </div>
+&nbsp
+<%= column_chart (@graph), max: 10%>
 
 <div class="index_anounce_deadline">
 <h3>終了期限間近 or 終了したタスク一覧(完了したタスク以外を表示してます)</h3>

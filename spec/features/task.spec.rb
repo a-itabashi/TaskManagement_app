@@ -226,4 +226,8 @@ RSpec.feature "タスク管理機能", type: :feature do
       end
  end
 
+ scenario "カレンダーに、タスクの終了期限を紐付けて表示出来ているか" do
+     find('#task_calender86').click
+     expect(page).to have_content "テストの内容D"
+ end
 end
