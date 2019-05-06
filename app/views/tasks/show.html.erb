@@ -20,7 +20,7 @@
   </tr>
   <tr>
     <th>画像</th>
-    <td><%= link_to "アップロードしたファイルだよ！", @task.image %></td>
+    <td><%= link_to "アップロードしたファイルだよ！", url_for(@task.image) if @task.image.attached? %></td>
   </tr>
   <tr>
     <th></th>
