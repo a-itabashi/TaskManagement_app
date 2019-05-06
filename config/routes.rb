@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   resources :labels
   resources :groups
   resources :assigns, only: %i[create destroy]
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
 end
