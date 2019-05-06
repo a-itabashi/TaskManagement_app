@@ -3,6 +3,11 @@
 <table class="table table-bordered text-center">
 
 <tr>
+  <th>プロフィール画像</th>
+  <td><%= image_tag (@user.image).variant(resize:'100x100').processed if @user.image.attached? %></td>
+</tr>
+
+<tr>
   <th>名前</th>
   <td><%= @user.name %></td>
 <tr>
