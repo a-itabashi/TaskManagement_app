@@ -11,6 +11,7 @@
       <th></th> 
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +19,6 @@
       <tr>
         <td><%= group.name %></td>
         <td><%= group.content %></td>
-
         <% if group.assigns.pluck(:user_id).include?current_user.id %>
           <td><%= link_to "詳細", group_path(group) %>
         <% end %>
