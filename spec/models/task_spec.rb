@@ -16,4 +16,16 @@ RSpec.describe Task, type: :model do
     task.user_id = user.id
     expect(task).to be_valid
   end
+
+  it "終了間近のタスクを持っているユーザーにバッチ処理でメール送信できるかどうか" do
+    @announce_deadline = Task.where("deadline <= ?", (Time.zone.today+7.day)).where("deadline > ?", (Time.zone.today)).where("status != ?", "完了")
+
+    i = 0
+    while i <  @announce_deadline.length do
+      list = @announce_deadline[i]
+      mail = DeadlineMailer.deadline(list).deliver
+      expect(mail.subject).to eq('終了期限間近のタスクがあります')
+      i += 1
+    end
+  end
 end
