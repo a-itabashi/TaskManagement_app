@@ -80,7 +80,8 @@ RSpec.feature "タスク管理機能", type: :feature do
       fill_in "もう一度ご希望のパスワードを入力して下さい", with:"testtest"
       click_on "登録する"
       click_on "テストマンさんの情報"
-      expect(tasks_url(:image)).not_to be_empty
+      # expect(tasks_url(:image)).not_to be_empty
+      expect(page.html).to include "cat.jpeg"
     end
-    end
+  end
 end
