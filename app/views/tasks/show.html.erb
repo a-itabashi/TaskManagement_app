@@ -19,7 +19,11 @@
     <td><%= @task.status %></td>
   </tr>
   <tr>
-    <th>優先順位</th>
+    <th>画像</th>
+    <td><%= link_to "アップロードしたファイルだよ！", @task.image %></td>
+  </tr>
+  <tr>
+    <th></th>
     <td><%= @task.priority_i18n %></td>
   </tr>
   </table>
