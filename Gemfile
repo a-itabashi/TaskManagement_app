@@ -20,6 +20,7 @@ gem 'enum_help'
 gem 'kaminari'
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'faker'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
