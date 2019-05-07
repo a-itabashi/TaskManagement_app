@@ -4,7 +4,7 @@
 
 <tr>
   <th>プロフィール画像</th>
-  <td><%= image_tag (@user.image).variant(resize:'100x100').processed if @user.image.attached? %></td>
+  <td><%= image_tag @user.image.variant(resize:'100x100').processed if @user.image.attached? %></td>
 </tr>
 
 <tr>
@@ -28,6 +28,8 @@
 </tr>
 <% end %>
 </table>
+
+<h3><%= link_to "プロフィール編集", edit_user_path(@user) %></h3>
 
 <h2><%= @user.name %>さんのタスク一覧</h2>
 
