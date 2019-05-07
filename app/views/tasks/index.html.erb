@@ -69,10 +69,9 @@
   <%= link_to "優先順位でソートする(高い順に)", tasks_path(sort_priority_expired: "true") %>
 </div>
 &nbsp
-
-<%= column_chart (@graph), max: 10%>
-
-
+<h2 class="text-center">各ラベルの使用頻度</h2>
+<%= column_chart (@graph),xtitle: "ラベル名" %>
+&nbsp
 <%= month_calendar(attribute: :deadline, events: @tasks, number_of_weeks: 8) do |date, tasks|  %>
   <%= date %>
 
