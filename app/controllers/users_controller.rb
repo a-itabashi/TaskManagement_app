@@ -22,6 +22,10 @@ class UsersController < ApplicationController
     @tasks = @user.tasks
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
@@ -36,7 +40,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin, :image)
   end
 
   def not_allow_new
