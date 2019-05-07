@@ -245,4 +245,46 @@ scenario "ラベルの使用頻度に関するグラフが表示されている�
   expect(page).to have_content "10"
 end
 
+ scenario "カレンダーに、タスクの終了期限を紐付けて表示出来ているか" do
+
+     find('#task_calender86').click
+     expect(page).to have_content "テストの内容D"
+
+ end
+
+ scenario "タスク作成時に、画像を投稿できる" do
+    visit root_path
+    click_on "ログイン"
+    fill_in "メールアドレス", with: "test@gmail.com"
+    fill_in "パスワード", with: "password"
+    click_on "ログインする"
+    find('.new_task').click
+    fill_in "タスク名", with: "画像投稿"
+    fill_in "詳細", with: "画像投稿のテストだよ"
+    fill_in "終了期限", with: "2020/04/10"
+    select "完了", from: "task_status"
+    select "低", from: "task_priority"
+    attach_file "添付画像", "#{Rails.root}/spec/files/cat.jpeg"
+    click_on "作成する"
+    expect(page).to have_content "タスクを登録しました"
+ end
+
+ scenario "タスクの詳細画面で画像を見ることができるかどうか" do
+    visit root_path
+    click_on "ログイン"
+    fill_in "メールアドレス", with: "test@gmail.com"
+    fill_in "パスワード", with: "password"
+    click_on "ログインする"
+    find('.new_task').click
+    fill_in "タスク名", with: "画像投稿"
+    fill_in "詳細", with: "画像投稿のテストだよ"
+    fill_in "終了期限", with: "2020/04/10"
+    select "完了", from: "task_status"
+    select "低", from: "task_priority"
+    attach_file "添付画像", "#{Rails.root}/spec/files/cat.jpeg"
+    click_on "作成する"
+    all('tbody tr')[3].click_link '詳細'
+    expect(page).to have_content "アップロードしたファイルだよ！"
+  end
+
 end

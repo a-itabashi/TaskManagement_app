@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   before_action :user_logged_in?
-  # before_action :not_show, only: %i[show]
-  before_action :admin_allow, only: %i[edit update]
+  before_action :not_edit_and_update, only: %i[edit update]
 
   def index
     @statues = ["未着手","着手中","完了"]
@@ -185,7 +184,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :status, :priority, labels_ids:[])
+    params.require(:task).permit(:title, :content, :deadline, :status, :priority, :image, labels_ids:[])
   end
 
   def user_logged_in?
@@ -195,13 +194,13 @@ class TasksController < ApplicationController
     end
   end
 
-  def admin_allow
-    unless current_user.try(:admin?)
-      redirect_to tasks_path
-    end
-  end
+  # def admin_allow
+  #   unless current_user.try(:admin?)
+  #     redirect_to tasks_path
+  #   end
+  # end
 
-  def not_show
+  def not_edit_and_update
     @task = Task.find(params[:id])
      unless current_user.try(:admin) || @task.user_id == current_user.id
        flash[:info] = "アクセスできません"
