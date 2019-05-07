@@ -68,6 +68,18 @@
 <div>
   <%= link_to "優先順位でソートする(高い順に)", tasks_path(sort_priority_expired: "true") %>
 </div>
+&nbsp
+
+<%= month_calendar(attribute: :deadline, events: @tasks, number_of_weeks: 8) do |date, tasks|  %>
+  <%= date %>
+
+  <% tasks.each do |task| %>
+    <div>
+      <p id="task_calender<%= task.id%>">期限タスク:<%= link_to task.title, task %></p>
+    </div>
+  <% end %>
+<% end %>
+
 
 <div class="index_anounce_deadline">
 <h3>終了期限間近 or 終了したタスク一覧(完了したタスク以外を表示してます)</h3>

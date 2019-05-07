@@ -20,6 +20,7 @@ gem 'enum_help'
 gem 'kaminari'
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'faker'
+gem "simple_calendar", "~> 2.0"
 gem 'mini_magick'
 
 group :development, :test do
