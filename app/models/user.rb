@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   has_many :reads, dependent: :destroy
 
+  has_one_attached :image
+
   # private
 
   # def delete_admin

@@ -16,4 +16,6 @@ class Task < ApplicationRecord
 
   has_many :reads, dependent: :destroy
 
+  has_one_attached :image
+
 end
