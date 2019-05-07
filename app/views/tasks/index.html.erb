@@ -70,6 +70,9 @@
 </div>
 &nbsp
 
+<%= column_chart (@graph), max: 10%>
+
+
 <%= month_calendar(attribute: :deadline, events: @tasks, number_of_weeks: 8) do |date, tasks|  %>
   <%= date %>
 

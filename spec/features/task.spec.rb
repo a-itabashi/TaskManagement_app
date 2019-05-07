@@ -226,6 +226,25 @@ RSpec.feature "タスク管理機能", type: :feature do
       end
  end
 
+scenario "ラベルの使用頻度に関するグラフが表示されているか" do
+  create_labels
+  visit root_path
+  click_on "ログイン"
+  fill_in "メールアドレス", with: "test@gmail.com"
+  fill_in "パスワード", with: "password"
+  click_on "ログインする"
+  find(".new_task").click
+  fill_in "タスク名", with: "タスク名A"
+  fill_in "詳細", with: "詳細A"
+  fill_in "終了期限", with: "2020/04/10"
+  select "完了", from: "task_status"
+  select "低", from: "task_priority"
+  check "task_label_ids_5"
+  check "task_label_ids_6"
+  click_on "作成する"
+  expect(page).to have_content "10"
+end
+
  scenario "カレンダーに、タスクの終了期限を紐付けて表示出来ているか" do
 
      find('#task_calender86').click

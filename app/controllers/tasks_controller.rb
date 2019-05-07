@@ -25,6 +25,17 @@ class TasksController < ApplicationController
       end 
     end
 
+    # 棒グラム用のデータ抽出
+    i = 1
+    label_numbers = []
+    while i < (@labels.length+1)
+     label_number =  Favorite.where(label_id: i).count
+     label_numbers << label_number
+     i += 1
+    end
+    label_contents = @labels.pluck(:content) 
+    @graph = [label_contents, label_numbers].transpose.to_h
+
 
     # @labels_arr_pre = Label.all
     # @labels_empty = []
