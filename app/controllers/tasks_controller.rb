@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @statues = ["未着手","着手中","完了"]
     @priorities = {高: 0, 中: 1, 低: 2} 
     @q = current_user.tasks.ransack(params[:q])
-    @tasks = TaskDecorator.decorate_collection(@q.result.page(params[:page]).per(10))
+    @tasks = @q.result.page(params[:page]).per(10)
     @labels = Label.all
     @announce_deadline = Task.announce_deadline
     

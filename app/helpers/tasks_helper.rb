@@ -6,8 +6,7 @@ module TasksHelper
        favorite = Favorite.where(label_id: params[:q][:content_eq])
        # 特定のラベルに紐づくtask_idの配列
        favorite_id = favorite.pluck(:task_id)
-       @tasks_all = Task.where(id: favorite_id).page(params[:page]).per(10)
-       @tasks = TaskDecorator.decorate_collection(@tasks_all.where(user_id: current_user.id))
+       @tasks = Task.where(id: favorite_id).page(params[:page]).per(10).where(user_id: current_user.id)
       end 
     end
   end
@@ -27,9 +26,9 @@ module TasksHelper
 
   def sort_by_params
     if params[:sort_params] == "deadline_expired"
-      @tasks = TaskDecorator.decorate_collection(Task.page(params[:page]).per(10).order(deadline: :asc))
+      @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
     elsif params[:sort_params] == "priority_expired"
-      @tasks = TaskDecorator.decorate_collection(Task.page(params[:page]).per(10).order(priority: :asc).where(user_id: current_user.id))
+      @tasks = Task.page(params[:page]).per(10).order(priority: :asc).where(user_id: current_user.id)
     end
   end
 
