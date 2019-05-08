@@ -1,6 +1,6 @@
-option#9のブランチ
+option#9のブランチだよ
 
-# TaskManagement_appの概要  
+## TaskManagement_appの概要  
 
 ## Model
 ### *Userモデル*
