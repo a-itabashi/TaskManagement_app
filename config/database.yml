@@ -6,9 +6,10 @@ default: &default
 development:
   <<: *default
   database: TaskManagement_app_development
-  
+
 test:
   <<: *default
+  username: TaskManagement_app
   database: TaskManagement_app_test
 
 production:
