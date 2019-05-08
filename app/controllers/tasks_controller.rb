@@ -10,11 +10,6 @@ class TasksController < ApplicationController
     @labels = Label.all
     @announce_deadline = Task.announce_deadline
     
-    begin
-      raise 'Something went wrong!'
-    rescue => exception
-      Bugsnag.notify(exception)
-    end
     sort_by_labels
     sort_by_params
     graph_data
@@ -26,15 +21,6 @@ class TasksController < ApplicationController
   end
 
   def create
-
-    agfadfads
-
-    begin
-      raise 'Something went wrong!'
-    rescue => exception
-      Bugsnag.notify(exception)
-    end
-
     @task = current_user.tasks.build(task_params)
     @labels = params[:task][:label_ids]
     @favorite = @task.favorites
@@ -50,6 +36,11 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     read_params
+    begin
+      raise 'Something went wrong!'
+    rescue => exception
+      Bugsnag.notify(exception)
+    end
   end
 
   def edit
