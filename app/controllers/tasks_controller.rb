@@ -10,9 +10,17 @@ class TasksController < ApplicationController
     @labels = Label.all
     @announce_deadline = Task.announce_deadline
     
+    begin
+      raise 'Something went wrong!'
+    rescue => exception
+      Bugsnag.notify(exception)
+    end
+
+
     sort_by_labels
     sort_by_params
-    graph_data
+    dafdgadga;lg;lrgl;dsg;lsdfgsdf
+    # graph_data
   end
   
   def new
