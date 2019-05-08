@@ -34,7 +34,7 @@ jobs:
       - image: circleci/ruby:2.6.0-node-browsers-legacy
         environment:
           RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_HOST: localhost
       - image: circleci/postgres:9.4
         environment:
           POSTGRES_USER: TaskManagement_app
