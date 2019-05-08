@@ -37,7 +37,7 @@ jobs:
           POSTGRES_HOST: 127.0.0.1
       - image: circleci/postgres:9.4
         environment:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: TaskManagement_app
           POSTGRES_DB: TaskManagement_app_test
     working_directory: ~/repo
     steps:
