@@ -19,8 +19,7 @@ class TasksController < ApplicationController
 
     sort_by_labels
     sort_by_params
-    dafdgadga;lg;lrgl;dsg;lsdfgsdf
-    # graph_data
+    graph_data
   end
   
   def new
