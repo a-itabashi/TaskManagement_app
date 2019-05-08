@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @statues = ["未着手","着手中","完了"]
     @priorities = {高: 0, 中: 1, 低: 2} 
     @q = current_user.tasks.ransack(params[:q])
-    @tasks = @q.result.page(params[:page]).per(10)
+    @tasks = TaskDecorator.decorate_collection(@q.result.page(params[:page]).per(10))
     @labels = Label.all
     @announce_deadline = Task.announce_deadline
     
@@ -21,20 +21,11 @@ class TasksController < ApplicationController
   end
 
   def create
-      @task = Task.new(task_params)
-      @task.user_id = current_user.id
-      @labels = params[:task][:label_ids]
-      @favorite = @task.favorites
-      if @task.save
-
-      if @labels
-        i = 0
-        while i < @labels.length  do
-          @favorite.create(label_id: @labels[i])
-          i += 1
-        end
-      end
-
+    @task = current_user.tasks.build(task_params)
+    @labels = params[:task][:label_ids]
+    @favorite = @task.favorites
+    if @task.save
+      create_labels
       flash[:success] = "タスクを登録しました"
       redirect_to tasks_path
     else
@@ -44,7 +35,6 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
-    # 既読・未読の判定
     read_params
   end
 
@@ -66,14 +56,12 @@ class TasksController < ApplicationController
     end
   end
 
-
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
     flash[:info] = "タスクを削除しました"
     redirect_to tasks_path
   end
-
 
   private
   def task_params

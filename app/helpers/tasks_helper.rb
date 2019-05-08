@@ -7,11 +7,12 @@ module TasksHelper
        # 特定のラベルに紐づくtask_idの配列
        favorite_id = favorite.pluck(:task_id)
        @tasks_all = Task.where(id: favorite_id).page(params[:page]).per(10)
-       @tasks = @tasks_all.where(user_id: current_user.id)
+       @tasks = TaskDecorator.decorate_collection(@tasks_all.where(user_id: current_user.id))
       end 
     end
   end
 
+  # controller
   def graph_data
     i = 1
     label_numbers = []
@@ -26,9 +27,9 @@ module TasksHelper
 
   def sort_by_params
     if params[:sort_params] == "deadline_expired"
-      @tasks = Task.page(params[:page]).per(10).order(deadline: :asc)
+      @tasks = TaskDecorator.decorate_collection(Task.page(params[:page]).per(10).order(deadline: :asc))
     elsif params[:sort_params] == "priority_expired"
-      @tasks = Task.page(params[:page]).per(10).order(priority: :asc).where(user_id: current_user.id)
+      @tasks = TaskDecorator.decorate_collection(Task.page(params[:page]).per(10).order(priority: :asc).where(user_id: current_user.id))
     end
   end
 
@@ -36,6 +37,16 @@ module TasksHelper
     if params[:r]
       unless current_user.reads.find_by(task_id: params[:r])
         current_user.reads.create(task_id: params[:r])
+      end
+    end
+  end
+
+  def create_labels
+    if @labels
+      i = 0
+      while i < @labels.length  do
+        @favorite.create(label_id: @labels[i])
+        i += 1
       end
     end
   end
