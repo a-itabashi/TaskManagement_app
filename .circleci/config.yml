@@ -22,8 +22,6 @@ jobs: # a collection of steps
 
       # Which version of bundler?
       - run:
-          name: Which bundler?
-          command: bundle -v
           name: setup bundler
           command: |
             sudo gem update --system
