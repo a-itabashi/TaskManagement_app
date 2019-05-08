@@ -15,8 +15,6 @@ class TasksController < ApplicationController
     rescue => exception
       Bugsnag.notify(exception)
     end
-
-
     sort_by_labels
     sort_by_params
     graph_data
@@ -28,6 +26,9 @@ class TasksController < ApplicationController
   end
 
   def create
+
+    agfadfads
+    
     @task = current_user.tasks.build(task_params)
     @labels = params[:task][:label_ids]
     @favorite = @task.favorites
