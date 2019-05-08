@@ -5,4 +5,4 @@ machine:
     version: 2.6.2
 test:
   post:
-    - bundle exec bin/rspec
+    - bundle exec rspec
