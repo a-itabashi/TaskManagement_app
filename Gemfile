@@ -40,6 +40,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'pry-nav'
   gem "rspec_junit_formatter"
+  gem 'rubocop'
 end
 
 group :development do
