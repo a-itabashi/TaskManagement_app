@@ -18,4 +18,7 @@ class Task < ApplicationRecord
 
   has_one_attached :image
 
+  def self.announce_deadline
+    where("deadline <= ?", (Time.zone.today+7.day)).where("status != ?", "完了")
+  end
 end

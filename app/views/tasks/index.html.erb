@@ -6,11 +6,8 @@
     <%= f.select :status_cont, @statues, include_blank: true %>
     <%= f.label :priority_eq, "優先順位" %>
     <%= f.select :priority_eq, @priorities, include_blank: true %>
-
-
     <%= f.label :content_eq, "ラベル名" %>
     <%= f.select :content_eq, @labels.map{|t| [t.content, t.id]}, include_blank: true %> 
-
     <%= f.submit "検索" %>
   <% end %>
 
@@ -25,10 +22,6 @@
       <th>状態</th>
       <th>優先順位</th>
       <th class="text-center">ラベル</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -62,11 +55,11 @@
 </div>
 &nbsp
 <div>
-  <%= link_to "終了期限でソートする(期限が近い順に)", tasks_path(sort_expired: "true") %>
+  <%= link_to "終了期限でソートする(期限が近い順に)", tasks_path(sort_params: "deadline_expired") %>
 </div>
 &nbsp
 <div>
-  <%= link_to "優先順位でソートする(高い順に)", tasks_path(sort_priority_expired: "true") %>
+  <%= link_to "優先順位でソートする(高い順に)", tasks_path(sort_params: "priority_expired") %>
 </div>
 &nbsp
 <h2 class="text-center">各ラベルの使用頻度</h2>
