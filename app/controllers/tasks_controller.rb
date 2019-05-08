@@ -28,7 +28,13 @@ class TasksController < ApplicationController
   def create
 
     agfadfads
-    
+
+    begin
+      raise 'Something went wrong!'
+    rescue => exception
+      Bugsnag.notify(exception)
+    end
+
     @task = current_user.tasks.build(task_params)
     @labels = params[:task][:label_ids]
     @favorite = @task.favorites
