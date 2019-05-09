@@ -17,6 +17,8 @@ task :deadline_mailer => :environment do
     i += 1
   end
 
+  puts "############################"
+  puts "合計#{i}人にメールを送りました"
   @send_mails.each_with_index do |list,index|
     puts "----------------------------"
     puts "メール送信者　#{index+1}人目"    
