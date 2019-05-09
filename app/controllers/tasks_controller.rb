@@ -25,7 +25,6 @@ class TasksController < ApplicationController
     @labels = params[:task][:label_ids]
     @favorite = @task.favorites
     if @task.save
-      DeadlineMailer.deadline(list).deliver
       create_labels
       flash[:success] = "タスクを登録しました"
       redirect_to tasks_path
