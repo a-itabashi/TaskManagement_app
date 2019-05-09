@@ -13,6 +13,13 @@ class TasksController < ApplicationController
     sort_by_labels
     sort_by_params
     graph_data
+
+    # bugsnag
+    begin
+      raise 'Something went wrong!'
+    rescue => exception
+      Bugsnag.notify(exception)
+    end
   end
   
   def new
@@ -36,11 +43,6 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     read_params
-    begin
-      raise 'Something went wrong!'
-    rescue => exception
-      Bugsnag.notify(exception)
-    end
   end
 
   def edit
