@@ -1,17 +1,8 @@
 <h1>タスクの編集</h1>
 
 <%= form_with(model: @task,local: true) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
-      <ul>
-
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  
+  <%= render 'shared/error_messages' %>
 
   <div class="form-group">
     <%= f.label :title, "タスク名" %>

@@ -100,8 +100,9 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "終了期限ボタンを押したらタスクが終了期限を元にソートされているか" do
     click_on "終了期限でソートする(期限が近い順に)"
     task_titles = page.all('.task_title').map(&:text)
+
     expect(task_titles[0]).to have_content "タイトルC"
-    expect(task_titles[1]).to have_content "タイトルD"
+    expect(task_titles[1]).to have_content "Factoryで作ったデフォルトのタイトル２"
   end
 
   scenario "タスク名・状態検索をし、期待する検索結果が出力されるか" do
@@ -246,8 +247,7 @@ scenario "ラベルの使用頻度に関するグラフが表示されている�
 end
 
  scenario "カレンダーに、タスクの終了期限を紐付けて表示出来ているか" do
-
-     find('#task_calender86').click
+     find('#task_calender92').click  
      expect(page).to have_content "テストの内容D"
 
  end

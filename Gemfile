@@ -22,8 +22,9 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'faker'
 gem "simple_calendar", "~> 2.0"
 gem 'mini_magick'
-
 gem "chartkick"
+gem 'draper'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -39,6 +40,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-nav'
+  gem "rspec_junit_formatter"
+  gem 'rubocop'
 end
 
 group :development do
@@ -57,3 +60,5 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "bugsnag", "~> 6.11"

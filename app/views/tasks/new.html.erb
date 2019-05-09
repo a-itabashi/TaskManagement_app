@@ -1,17 +1,8 @@
 <h1>タスクの作成</h1>
 
 <%= form_with(model: @task,local: true) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @task.errors.count %>件のエラーがあります。</h2>
-      <ul>
 
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/error_messages' %>
 
   <div class="form-group">
     <%= f.label :title, "タスク名" %>
@@ -34,9 +25,7 @@
     <%= f.select :priority, Task.priorities_i18n.keys.map {|k| [Task.priorities_i18n[k], k]} %>
   </div>
 
-    <%#= f.label :content , "ラベル名" %>
-      <% Label.all.each do |label| %>
-    <!-- checked: label[:checked], disabled: label[:disabled]の記述でチェックがついたときに（label[:id]）に入っている値を送信できるようになります-->
+    <% Label.all.each do |label| %>
       <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false},label[:id] %>
       <%= label.content %>
     <% end %> 
