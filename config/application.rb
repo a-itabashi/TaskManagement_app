@@ -22,5 +22,7 @@ module TaskManagementApp
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end

@@ -24,6 +24,7 @@ gem "simple_calendar", "~> 2.0"
 gem 'mini_magick'
 gem "chartkick"
 gem 'draper'
+gem 'letter_opener_web'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -39,6 +40,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-nav'
+  gem 'delayed_job_active_record'
 end
 
 group :development do
@@ -48,7 +50,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
   gem 'rails-erd'
-  gem 'letter_opener_web'
 end
 
 group :test do
