@@ -25,7 +25,6 @@ gem 'mini_magick'
 gem "chartkick"
 gem 'draper'
 gem 'letter_opener_web'
-gem 'delayed_job_active_record'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -41,6 +40,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-nav'
+  gem 'delayed_job_active_record'
 end
 
 group :development do
